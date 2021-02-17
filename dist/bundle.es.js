@@ -166,16 +166,16 @@ const PURCHASE_LIST_STARTED = 'PURCHASE_LIST_STARTED';
 const PURCHASE_LIST_COMPLETED = 'PURCHASE_LIST_COMPLETED';
 const PURCHASE_LIST_FAILED = 'PURCHASE_LIST_FAILED';
 
-const COLLECTION_CREATE_STARTED = 'COLLECTION_CREATE_STARTED';
-const COLLECTION_CREATE_COMPLETED = 'COLLECTION_CREATE_COMPLETED';
-const COLLECTION_CREATE_FAILED = 'COLLECTION_CREATE_FAILED';
+const PUBLISHED_COLLECTION_CREATE_STARTED = 'PUBLISHED_COLLECTION_CREATE_STARTED';
+const PUBLISHED_COLLECTION_CREATE_COMPLETED = 'PUBLISHED_COLLECTION_CREATE_COMPLETED';
+const PUBLISHED_COLLECTION_CREATE_FAILED = 'PUBLISHED_COLLECTION_CREATE_FAILED';
 const COLLECTION_RESOLVE_STARTED = 'COLLECTION_RESOLVE_STARTED';
 const COLLECTION_RESOLVE_COMPLETED = 'COLLECTION_RESOLVE_COMPLETED';
 const COLLECTION_RESOLVE_FAILED = 'COLLECTION_RESOLVE_FAILED';
-const PLAYLIST_CREATE = 'PLAYLIST_CREATE';
-const PLAYLIST_DELETE = 'PLAYLIST_DELETE';
-const PLAYLIST_UPDATE = 'PLAYLIST_UPDATE';
-const PLAYLIST_ERROR = 'PLAYLIST_ERROR';
+const UNPUBLISHED_COLLECTION_CREATE = 'UNPUBLISHED_COLLECTION_CREATE';
+const UNPUBLISHED_COLLECTION_DELETE = 'UNPUBLISHED_COLLECTION_DELETE';
+const UNPUBLISHED_COLLECTION_UPDATE = 'UNPUBLISHED_COLLECTION_UPDATE';
+const UNPUBLISHED_COLLECTION_ERROR = 'UNPUBLISHED_COLLECTION_ERROR';
 
 // Comments
 const COMMENT_LIST_STARTED = 'COMMENT_LIST_STARTED';
@@ -454,16 +454,16 @@ var action_types = /*#__PURE__*/Object.freeze({
   PURCHASE_LIST_STARTED: PURCHASE_LIST_STARTED,
   PURCHASE_LIST_COMPLETED: PURCHASE_LIST_COMPLETED,
   PURCHASE_LIST_FAILED: PURCHASE_LIST_FAILED,
-  COLLECTION_CREATE_STARTED: COLLECTION_CREATE_STARTED,
-  COLLECTION_CREATE_COMPLETED: COLLECTION_CREATE_COMPLETED,
-  COLLECTION_CREATE_FAILED: COLLECTION_CREATE_FAILED,
+  PUBLISHED_COLLECTION_CREATE_STARTED: PUBLISHED_COLLECTION_CREATE_STARTED,
+  PUBLISHED_COLLECTION_CREATE_COMPLETED: PUBLISHED_COLLECTION_CREATE_COMPLETED,
+  PUBLISHED_COLLECTION_CREATE_FAILED: PUBLISHED_COLLECTION_CREATE_FAILED,
   COLLECTION_RESOLVE_STARTED: COLLECTION_RESOLVE_STARTED,
   COLLECTION_RESOLVE_COMPLETED: COLLECTION_RESOLVE_COMPLETED,
   COLLECTION_RESOLVE_FAILED: COLLECTION_RESOLVE_FAILED,
-  PLAYLIST_CREATE: PLAYLIST_CREATE,
-  PLAYLIST_DELETE: PLAYLIST_DELETE,
-  PLAYLIST_UPDATE: PLAYLIST_UPDATE,
-  PLAYLIST_ERROR: PLAYLIST_ERROR,
+  UNPUBLISHED_COLLECTION_CREATE: UNPUBLISHED_COLLECTION_CREATE,
+  UNPUBLISHED_COLLECTION_DELETE: UNPUBLISHED_COLLECTION_DELETE,
+  UNPUBLISHED_COLLECTION_UPDATE: UNPUBLISHED_COLLECTION_UPDATE,
+  UNPUBLISHED_COLLECTION_ERROR: UNPUBLISHED_COLLECTION_ERROR,
   COMMENT_LIST_STARTED: COMMENT_LIST_STARTED,
   COMMENT_LIST_COMPLETED: COMMENT_LIST_COMPLETED,
   COMMENT_LIST_FAILED: COMMENT_LIST_FAILED,
@@ -2525,8 +2525,6 @@ const selectMyChannelUrls = reselect.createSelector(selectMyChannelClaims, claim
 
 const selectMyCollectionIds = reselect.createSelector(selectState$1, state => state.myCollectionClaims);
 
-// selectMyCollectionUrls
-
 const selectResolvingUris = reselect.createSelector(selectState$1, state => state.resolvingUris || []);
 
 const selectChannelImportPending = reselect.createSelector(selectState$1, state => state.pendingChannelImport);
@@ -2704,37 +2702,37 @@ const makeSelectTagInClaimOrChannelForUri = (uri, tag) => reselect.createSelecto
 const selectState$2 = state => state.collections;
 
 const selectSavedCollectionIds = reselect.createSelector(selectState$2, collectionState => collectionState.saved);
-const selectBuiltinPlaylists = reselect.createSelector(selectState$2, state => state.builtin);
-const selectResolvedPlaylists = reselect.createSelector(selectState$2, state => state.resolved);
-const selectMyUnpublishedPlaylists = reselect.createSelector(selectState$2, state => state.unpublished);
-const selectMyPublishedPlaylists = reselect.createSelector(selectResolvedPlaylists, selectMyCollectionIds, (resolved, myIds) => {
-  const myPublishedPlaylists = Object.fromEntries(Object.entries(resolved).filter(([key, val]) => myIds.includes(key)));
-  return myPublishedPlaylists;
+const selectBuiltinCollections = reselect.createSelector(selectState$2, state => state.builtin);
+const selectResolvedCollections = reselect.createSelector(selectState$2, state => state.resolved);
+const selectMyUnpublishedCollections = reselect.createSelector(selectState$2, state => state.unpublished);
+const selectMyPublishedCollections = reselect.createSelector(selectResolvedCollections, selectMyCollectionIds, (resolved, myIds) => {
+  const myPublishedCollections = Object.fromEntries(Object.entries(resolved).filter(([key, val]) => myIds.includes(key)));
+  return myPublishedCollections;
 });
 
-const selectSavedPlaylists = reselect.createSelector(selectResolvedPlaylists, selectSavedCollectionIds, (resolved, myIds) => {
-  const mySavedPlaylists = Object.fromEntries(Object.entries(resolved).filter(([key, val]) => myIds.includes(key)));
-  return mySavedPlaylists;
+const selectSavedCollections = reselect.createSelector(selectResolvedCollections, selectSavedCollectionIds, (resolved, myIds) => {
+  const mySavedCollections = Object.fromEntries(Object.entries(resolved).filter(([key, val]) => myIds.includes(key)));
+  return mySavedCollections;
 });
 
 const makeSelectIsResolvingCollectionForId = id => reselect.createSelector(selectState$2, state => {
-  return state.isResolvingCollectionById.includes(id);
+  return state.isResolvingCollectionById[id];
 });
 
-const makeSelectPlaylistForId = id => reselect.createSelector(selectBuiltinPlaylists, selectResolvedPlaylists, selectMyUnpublishedPlaylists, (bLists, rLists, uLists) => {
+const makeSelectCollectionForId = id => reselect.createSelector(selectBuiltinCollections, selectResolvedCollections, selectMyUnpublishedCollections, (bLists, rLists, uLists) => {
   // probably return the most updated when both unpublished and published have same id, maybe mark as unsaved
-  const playlist = bLists[id] || rLists[id] || uLists[id];
-  return playlist;
+  const collection = bLists[id] || rLists[id] || uLists[id];
+  return collection;
 });
 
-const makeSelectUrlsForPlaylistId = id => reselect.createSelector(makeSelectPlaylistForId(id), playlist => {
-  const items = playlist && playlist.items || [];
+const makeSelectUrlsForCollectionId = id => reselect.createSelector(makeSelectCollectionForId(id), collection => {
+  const items = collection && collection.items || [];
   const urls = items.map(item => item.url);
   return urls;
 });
 
-const makeSelectNameForPlaylistId = id => reselect.createSelector(makeSelectPlaylistForId(id), playlist => {
-  return playlist.name || '';
+const makeSelectNameForCollectionId = id => reselect.createSelector(makeSelectCollectionForId(id), collection => {
+  return collection.name || '';
 });
 
 function numberWithCommas(x) {
@@ -4137,14 +4135,20 @@ const doCheckPendingClaims = onConfirmed => (dispatch, getState) => {
 
 function _asyncToGenerator$2(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
+const getTimestamp = () => {
+  return Math.floor(Date.now() / 1000);
+};
+
 // maybe take items param
-const doAddPlaylist = name => dispatch => {
+const doCreateUnpublishedCollection = name => dispatch => {
   return dispatch({
-    type: PLAYLIST_CREATE,
+    type: UNPUBLISHED_COLLECTION_CREATE,
     data: {
       entry: {
         id: uuid.v4(), // start with a uuid, this becomes a claimId after publish
-        name: name
+        name: name,
+        updatedAt: getTimestamp(),
+        items: []
       }
     }
   });
@@ -4154,14 +4158,21 @@ const doResolveCollections = collectionIds => (() => {
   var _ref = _asyncToGenerator$2(function* (dispatch, getState) {
     let resolveCollection = (() => {
       var _ref2 = _asyncToGenerator$2(function* (claim_id) {
-        const result = yield lbryProxy.collection_resolve({ claim_id });
-        const val = {};
-        if (result.items) {
-          val[claim_id] = result.items;
-        } else {
-          val[claim_id] = null;
+        try {
+          const result = yield lbryProxy.collection_resolve({ claim_id });
+          const val = { claimId: claim_id };
+          if (result.items) {
+            val.items = result.items;
+          } else {
+            val.items = null;
+          }
+          return val;
+        } catch (e) {
+          return {
+            claimId: claim_id,
+            items: null
+          };
         }
-        return val;
       });
 
       return function resolveCollection(_x3) {
@@ -4172,7 +4183,7 @@ const doResolveCollections = collectionIds => (() => {
     let state = getState();
 
     // for each collection id,
-    // make sure the collection is resolved, the items are resolved, and build the playlist objects
+    // make sure the collection is resolved, the items are resolved, and build the collection objects
 
     dispatch({
       type: COLLECTION_RESOLVE_STARTED,
@@ -4187,31 +4198,22 @@ const doResolveCollections = collectionIds => (() => {
       yield doClaimSearch(options);
     }
 
-    state = getState();
+    const stateAfterClaimSearch = getState();
 
     const promises = [];
     collectionIds.forEach(function (collectionId) {
       promises.push(resolveCollection(collectionId));
     });
 
+    // $FlowFixMe
     const resolvedCollectionItemsById = yield Promise.all(promises);
 
-    const processedClaimsByUri = {};
-
-    function processClaims(resultClaimsByUri, processedClaimsByUri = {}) {
+    function processClaims(resultClaimsByUri) {
+      const processedClaims = {};
       Object.entries(resultClaimsByUri).forEach(([uri, uriResolveInfo]) => {
         // Flow has terrible Object.entries support
         // https://github.com/facebook/flow/issues/2221
         if (uriResolveInfo) {
-          // SKIP REPOSTS FOR NOW
-          // if (uriResolveInfo.reposted_claim) {
-          //   // $FlowFixMe
-          //   const repostUrl = uriResolveInfo.reposted_claim.permanent_url;
-          //   if (!resolvingUris.includes(repostUrl)) {
-          //     repostsToResolve.push(repostUrl);
-          //   }
-          // }
-
           let result = {};
           if (uriResolveInfo.value_type === 'channel') {
             result.channel = uriResolveInfo;
@@ -4226,19 +4228,20 @@ const doResolveCollections = collectionIds => (() => {
             }
           }
           // $FlowFixMe
-          processedClaimsByUri[uri] = result;
+          processedClaims[uri] = result;
         }
       });
+      return processedClaims;
     }
 
-    const newPlaylistItemsById = {};
+    const newCollectionItemsById = {};
     const flatResolvedCollectionItems = {};
     resolvedCollectionItemsById.forEach(function (entry) {
       // $FlowFixMe
-      const collectionItems = Object.values(entry)[0];
-      const collectionId = Object.keys(entry)[0];
+      const collectionItems = entry.items;
+      const collectionId = entry.claimId;
       if (collectionItems) {
-        const claim = makeSelectClaimForClaimId(collectionId)(state);
+        const claim = makeSelectClaimForClaimId(collectionId)(stateAfterClaimSearch);
         const { name, timestamp } = claim || {};
         const types = new Set();
 
@@ -4251,7 +4254,7 @@ const doResolveCollections = collectionIds => (() => {
           types.add(collectionItem.value_type);
           flatResolvedCollectionItems[collectionItem.canonical_url] = collectionItem;
         });
-        newPlaylistItemsById[collectionId] = {
+        newCollectionItemsById[collectionId] = {
           items,
           id: collectionId,
           name: name,
@@ -4259,11 +4262,11 @@ const doResolveCollections = collectionIds => (() => {
           updatedAt: timestamp
         };
       } else {
-        newPlaylistItemsById[collectionId] = null;
+        newCollectionItemsById[collectionId] = null;
       }
     });
+    const processedClaimsByUri = processClaims(flatResolvedCollectionItems);
 
-    processClaims(flatResolvedCollectionItems, processedClaimsByUri);
     dispatch({
       type: RESOLVE_URIS_COMPLETED,
       data: { resolveInfo: processedClaimsByUri }
@@ -4271,7 +4274,7 @@ const doResolveCollections = collectionIds => (() => {
 
     dispatch({
       type: COLLECTION_RESOLVE_COMPLETED,
-      data: { resolvedCollections: newPlaylistItemsById }
+      data: { resolvedCollections: newCollectionItemsById }
     });
   });
 
@@ -4282,51 +4285,49 @@ const doResolveCollections = collectionIds => (() => {
 
 const doResolveCollection = collectionId => doResolveCollections([collectionId]);
 
-const doUpdatePlaylist = (id, params) => (dispatch, getState) => {
+const doUpdateUnpublishedCollection = (id, params) => (dispatch, getState) => {
   const state = getState();
-  const playlist = makeSelectPlaylistForId(id)(state);
+  const collection = makeSelectCollectionForId(id)(state);
 
-  const generatePlaylistItem = claim => {
+  const generateCollectionItem = claim => {
     if (claim && claim.canonical_url) {
       const item = {};
       item.url = claim.canonical_url;
       item.claimId = claim.claim_id;
-      item.addedAt = Date.now();
       return item;
     }
   };
 
-  if (!playlist) {
+  if (!collection) {
     return dispatch({
-      type: PLAYLIST_ERROR,
+      type: UNPUBLISHED_COLLECTION_ERROR,
       data: {
-        message: 'playlist does not exist'
+        message: 'collection does not exist'
       }
     });
   }
 
-  let items = playlist.items;
-  const passedClaims = params.claims; // && params.claims.map(claim => claim.claimId);
+  let items = collection.items;
+  const passedClaims = params.claims;
   // add or remove claim
   if (passedClaims) {
     if (params.remove) {
       const passedClaimIds = passedClaims.map(claim => claim.claimId);
       items = items.filter(it => passedClaimIds.includes(it.claimId)); // filter the claim
     } else {
-      params.claims.forEach(claim => items.push(generatePlaylistItem(claim)));
+      params.claims.forEach(claim => items.push(generateCollectionItem(claim)));
     }
   }
 
-  // add addedat date
   dispatch({
-    type: PLAYLIST_UPDATE,
+    type: UNPUBLISHED_COLLECTION_UPDATE,
     data: {
       id: id,
-      playlist: {
+      collection: {
         items: items,
         id: id,
-        name: params.name || playlist.name,
-        updatedAt: Date.now()
+        name: params.name || collection.name,
+        updatedAt: getTimestamp()
       }
     }
   });
@@ -5508,12 +5509,14 @@ reducers[FETCH_CHANNEL_LIST_FAILED] = (state, action) => {
   });
 };
 
-reducers[FETCH_COLLECTION_LIST_STARTED] = state => Object.assign({}, state, { fetchingMyCollections: true });
+reducers[FETCH_COLLECTION_LIST_STARTED] = state => _extends$9({}, state, {
+  fetchingMyCollections: true
+});
 
 reducers[FETCH_COLLECTION_LIST_COMPLETED] = (state, action) => {
   const { claims } = action.data;
   const myClaims = state.myClaims || [];
-  let myClaimIds = new Set(state.myClaims);
+  let myClaimIds = new Set(myClaims);
   const pendingIds = state.pendingIds || [];
   let myCollectionClaims;
   const byId = Object.assign({}, state.byId);
@@ -5533,6 +5536,7 @@ reducers[FETCH_COLLECTION_LIST_COMPLETED] = (state, action) => {
 
       // $FlowFixMe
       myCollectionClaims.add(claimId);
+      // we don't want to overwrite a pending result with a resolve
       if (!pendingIds.some(c => c === claimId)) {
         byId[claimId] = claim;
       }
@@ -5540,7 +5544,7 @@ reducers[FETCH_COLLECTION_LIST_COMPLETED] = (state, action) => {
     });
   }
 
-  return Object.assign({}, state, {
+  return _extends$9({}, state, {
     byId,
     claimsByUri: byUri,
     fetchingMyCollections: false,
@@ -5549,10 +5553,8 @@ reducers[FETCH_COLLECTION_LIST_COMPLETED] = (state, action) => {
   });
 };
 
-reducers[FETCH_COLLECTION_LIST_FAILED] = (state, action) => {
-  return Object.assign({}, state, {
-    fetchingMyCollections: false
-  });
+reducers[FETCH_COLLECTION_LIST_FAILED] = state => {
+  return _extends$9({}, state, { fetchingMyCollections: false });
 };
 
 reducers[FETCH_CHANNEL_CLAIMS_STARTED] = (state, action) => {
@@ -6774,7 +6776,7 @@ const walletReducer = handleActions({
 
 var _extends$e = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-const getTimestamp = () => {
+const getTimestamp$1 = () => {
   return Math.floor(Date.now() / 1000);
 };
 
@@ -6787,7 +6789,7 @@ const defaultState$6 = {
       }],
       id: 'watchlater',
       name: 'Watch Later',
-      updatedAt: getTimestamp(),
+      updatedAt: getTimestamp$1(),
       type: 'stream'
     },
     favorites: {
@@ -6798,25 +6800,27 @@ const defaultState$6 = {
       id: 'favoritestreams',
       name: 'Favorites',
       type: 'stream',
-      updatedAt: getTimestamp()
+      updatedAt: getTimestamp$1()
     }
   },
   resolved: {},
   unpublished: {},
   saved: [],
   mine: [],
-  isResolvingCollectionById: [],
+  isResolvingCollectionById: {},
   error: null
 };
 
 const collectionsReducer = handleActions({
-  [PLAYLIST_CREATE]: (state, action) => {
+  [UNPUBLISHED_COLLECTION_CREATE]: (state, action) => {
     const { entry: params } = action.data; // { id:, items: Array<any>}
+    // entry
     const newListTemplate = {
       id: params.id,
       name: params.name,
       items: [],
-      updatedAt: getTimestamp()
+      updatedAt: getTimestamp$1(),
+      type: 'mixed' // what
     };
 
     const newList = Object.assign({}, newListTemplate, _extends$e({}, params));
@@ -6828,7 +6832,7 @@ const collectionsReducer = handleActions({
     });
   },
 
-  [PLAYLIST_DELETE]: (state, action) => {
+  [UNPUBLISHED_COLLECTION_DELETE]: (state, action) => {
     const { unpublished: lists } = state;
     const { name } = action.data;
     if (lists && lists[name] && lists[name].userList) {
@@ -6839,18 +6843,17 @@ const collectionsReducer = handleActions({
     });
   },
 
-  [PLAYLIST_UPDATE]: (state, action) => {
+  [UNPUBLISHED_COLLECTION_UPDATE]: (state, action) => {
     const { unpublished: lists } = state;
     const newLists = Object.assign({}, lists);
-    const { id, playlist } = action.data;
-    newLists[id] = playlist;
-    newLists[id]['updatedAt'] = getTimestamp();
+    const { id, collection } = action.data;
+    newLists[id] = collection;
 
     return _extends$e({}, state, {
       unpublished: newLists
     });
   },
-  [PLAYLIST_ERROR]: (state, action) => {
+  [UNPUBLISHED_COLLECTION_ERROR]: (state, action) => {
     return Object.assign({}, state, {
       error: action.data.message
     });
@@ -6859,9 +6862,9 @@ const collectionsReducer = handleActions({
   [COLLECTION_RESOLVE_STARTED]: (state, action) => {
     const { ids } = action.data;
     const { isResolvingCollectionById } = state;
-    const newResolving = isResolvingCollectionById.concat();
+    const newResolving = Object.assign({}, isResolvingCollectionById);
     ids.forEach(id => {
-      newResolving.push(id);
+      newResolving[id] = true;
     });
     return Object.assign({}, state, _extends$e({}, state, {
       error: '',
@@ -6881,10 +6884,10 @@ const collectionsReducer = handleActions({
   //   };
   // },
   [COLLECTION_RESOLVE_COMPLETED]: (state, action) => {
-    const { resolvedCollections, entry: params, id } = action.data;
-    const resolvedIds = Object.keys(resolvedCollections);
+    const { resolvedCollections } = action.data;
     const { isResolvingCollectionById, resolved: lists } = state;
-    const newResolving = isResolvingCollectionById.filter(i => resolvedIds.includes(id));
+    // remove resolvedIds from isResolvingCollectionById{}
+    const newResolving = Object.assign({}, isResolvingCollectionById);
     const newLists = Object.assign({}, lists, resolvedCollections);
 
     return Object.assign({}, state, _extends$e({}, state, {
@@ -6973,7 +6976,6 @@ exports.createNormalizedClaimSearchKey = createNormalizedClaimSearchKey;
 exports.creditsToString = creditsToString;
 exports.doAbandonClaim = doAbandonClaim;
 exports.doAbandonTxo = doAbandonTxo;
-exports.doAddPlaylist = doAddPlaylist;
 exports.doBalanceSubscribe = doBalanceSubscribe;
 exports.doCheckAddressIsMine = doCheckAddressIsMine;
 exports.doCheckPendingClaims = doCheckPendingClaims;
@@ -6986,6 +6988,7 @@ exports.doClearPurchasedUriSuccess = doClearPurchasedUriSuccess;
 exports.doClearRepostError = doClearRepostError;
 exports.doClearSupport = doClearSupport;
 exports.doCreateChannel = doCreateChannel;
+exports.doCreateUnpublishedCollection = doCreateUnpublishedCollection;
 exports.doDismissError = doDismissError;
 exports.doDismissToast = doDismissToast;
 exports.doError = doError;
@@ -7026,9 +7029,9 @@ exports.doToast = doToast;
 exports.doUpdateBalance = doUpdateBalance;
 exports.doUpdateBlockHeight = doUpdateBlockHeight;
 exports.doUpdateChannel = doUpdateChannel;
-exports.doUpdatePlaylist = doUpdatePlaylist;
 exports.doUpdatePublishForm = doUpdatePublishForm;
 exports.doUpdateTxoPageParams = doUpdateTxoPageParams;
+exports.doUpdateUnpublishedCollection = doUpdateUnpublishedCollection;
 exports.doUploadThumbnail = doUploadThumbnail;
 exports.doUtxoConsolidate = doUtxoConsolidate;
 exports.doWalletDecrypt = doWalletDecrypt;
@@ -7056,6 +7059,7 @@ exports.makeSelectClaimIsPending = makeSelectClaimIsPending;
 exports.makeSelectClaimWasPurchased = makeSelectClaimWasPurchased;
 exports.makeSelectClaimsInChannelForCurrentPageState = makeSelectClaimsInChannelForCurrentPageState;
 exports.makeSelectClaimsInChannelForPage = makeSelectClaimsInChannelForPage;
+exports.makeSelectCollectionForId = makeSelectCollectionForId;
 exports.makeSelectContentPositionForUri = makeSelectContentPositionForUri;
 exports.makeSelectContentTypeForUri = makeSelectContentTypeForUri;
 exports.makeSelectCoverForUri = makeSelectCoverForUri;
@@ -7079,14 +7083,13 @@ exports.makeSelectMetadataItemForUri = makeSelectMetadataItemForUri;
 exports.makeSelectMyChannelPermUrlForName = makeSelectMyChannelPermUrlForName;
 exports.makeSelectMyPurchasesForPage = makeSelectMyPurchasesForPage;
 exports.makeSelectMyStreamUrlsForPage = makeSelectMyStreamUrlsForPage;
-exports.makeSelectNameForPlaylistId = makeSelectNameForPlaylistId;
+exports.makeSelectNameForCollectionId = makeSelectNameForCollectionId;
 exports.makeSelectNsfwCountForChannel = makeSelectNsfwCountForChannel;
 exports.makeSelectNsfwCountFromUris = makeSelectNsfwCountFromUris;
 exports.makeSelectOmittedCountForChannel = makeSelectOmittedCountForChannel;
 exports.makeSelectPendingAmountByUri = makeSelectPendingAmountByUri;
 exports.makeSelectPendingClaimForUri = makeSelectPendingClaimForUri;
 exports.makeSelectPermanentUrlForUri = makeSelectPermanentUrlForUri;
-exports.makeSelectPlaylistForId = makeSelectPlaylistForId;
 exports.makeSelectPublishFormValue = makeSelectPublishFormValue;
 exports.makeSelectReflectingClaimForUri = makeSelectReflectingClaimForUri;
 exports.makeSelectSearchDownloadUrlsCount = makeSelectSearchDownloadUrlsCount;
@@ -7103,7 +7106,7 @@ exports.makeSelectTotalItemsForChannel = makeSelectTotalItemsForChannel;
 exports.makeSelectTotalPagesForChannel = makeSelectTotalPagesForChannel;
 exports.makeSelectTotalPagesInChannelSearch = makeSelectTotalPagesInChannelSearch;
 exports.makeSelectUriIsStreamable = makeSelectUriIsStreamable;
-exports.makeSelectUrlsForPlaylistId = makeSelectUrlsForPlaylistId;
+exports.makeSelectUrlsForCollectionId = makeSelectUrlsForCollectionId;
 exports.normalizeURI = normalizeURI;
 exports.notificationsReducer = notificationsReducer;
 exports.parseQueryParams = parseQueryParams;
@@ -7119,7 +7122,7 @@ exports.selectAllFetchingChannelClaims = selectAllFetchingChannelClaims;
 exports.selectAllMyClaimsByOutpoint = selectAllMyClaimsByOutpoint;
 exports.selectBalance = selectBalance;
 exports.selectBlocks = selectBlocks;
-exports.selectBuiltinPlaylists = selectBuiltinPlaylists;
+exports.selectBuiltinCollections = selectBuiltinCollections;
 exports.selectChannelClaimCounts = selectChannelClaimCounts;
 exports.selectChannelImportPending = selectChannelImportPending;
 exports.selectClaimIdsByUri = selectClaimIdsByUri;
@@ -7181,11 +7184,11 @@ exports.selectMyClaimsPageNumber = selectMyClaimsPageNumber;
 exports.selectMyClaimsRaw = selectMyClaimsRaw;
 exports.selectMyClaimsWithoutChannels = selectMyClaimsWithoutChannels;
 exports.selectMyCollectionIds = selectMyCollectionIds;
-exports.selectMyPublishedPlaylists = selectMyPublishedPlaylists;
+exports.selectMyPublishedCollections = selectMyPublishedCollections;
 exports.selectMyPurchases = selectMyPurchases;
 exports.selectMyPurchasesCount = selectMyPurchasesCount;
 exports.selectMyStreamUrlsCount = selectMyStreamUrlsCount;
-exports.selectMyUnpublishedPlaylists = selectMyUnpublishedPlaylists;
+exports.selectMyUnpublishedCollections = selectMyUnpublishedCollections;
 exports.selectPendingConsolidateTxid = selectPendingConsolidateTxid;
 exports.selectPendingIds = selectPendingIds;
 exports.selectPendingMassClaimTxid = selectPendingMassClaimTxid;
@@ -7200,9 +7203,9 @@ exports.selectReflectingById = selectReflectingById;
 exports.selectRepostError = selectRepostError;
 exports.selectRepostLoading = selectRepostLoading;
 exports.selectReservedBalance = selectReservedBalance;
-exports.selectResolvedPlaylists = selectResolvedPlaylists;
+exports.selectResolvedCollections = selectResolvedCollections;
 exports.selectResolvingUris = selectResolvingUris;
-exports.selectSavedPlaylists = selectSavedPlaylists;
+exports.selectSavedCollections = selectSavedCollections;
 exports.selectSupportsBalance = selectSupportsBalance;
 exports.selectSupportsByOutpoint = selectSupportsByOutpoint;
 exports.selectTakeOverAmount = selectTakeOverAmount;

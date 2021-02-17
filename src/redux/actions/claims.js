@@ -710,11 +710,8 @@ export function doCollectionCreate(options: {
   bid: string,
   blocking: true,
   title?: string,
-  cover_url?: string,
   thumbnail_url?: string,
   description?: string,
-  website_url?: string,
-  email?: string,
   tags?: Array<string>,
   languages?: Array<string>,
 }) {
@@ -722,13 +719,13 @@ export function doCollectionCreate(options: {
     // $FlowFixMe
     return new Promise(resolve => {
       dispatch({
-        type: ACTIONS.COLLECTION_CREATE_STARTED,
+        type: ACTIONS.PUBLISHED_COLLECTION_CREATE_STARTED,
       });
 
       function success(response) {
         const collectionClaim = response.outputs[0];
         dispatch({
-          type: ACTIONS.COLLECTION_CREATE_COMPLETED,
+          type: ACTIONS.PUBLISHED_COLLECTION_CREATE_COMPLETED,
           data: {
             collectionClaim,
           },
@@ -740,13 +737,13 @@ export function doCollectionCreate(options: {
           },
         });
         // this only asks for streams and reposts right now
-        dispatch(doFetchClaimListMine(1, 10));
+        dispatch(doFetchCollectionListMine(1, 10));
         resolve(collectionClaim);
       }
 
       function failure(error) {
         dispatch({
-          type: ACTIONS.COLLECTION_CREATE_FAILED,
+          type: ACTIONS.PUBLISHED_COLLECTION_CREATE_FAILED,
           data: {
             error: error.message,
           },
@@ -763,12 +760,9 @@ export function doCollectionUpdate(options: {
   bid: string,
   blocking: true,
   title?: string,
-  cover_url?: string,
   thumbnail_url?: string,
   description?: string,
-  website_url?: string,
   claim_id: string,
-  email?: string,
   tags?: Array<string>,
   languages?: Array<string>,
 }) {
@@ -776,13 +770,13 @@ export function doCollectionUpdate(options: {
     // $FlowFixMe
     return new Promise(resolve => {
       dispatch({
-        type: ACTIONS.COLLECTION_CREATE_STARTED,
+        type: ACTIONS.PUBLISHED_COLLECTION_CREATE_STARTED,
       });
 
       function success(response) {
         const collectionClaim = response.outputs[0];
         dispatch({
-          type: ACTIONS.COLLECTION_CREATE_COMPLETED,
+          type: ACTIONS.PUBLISHED_COLLECTION_CREATE_COMPLETED,
           data: {
             collectionClaim,
           },
@@ -799,7 +793,7 @@ export function doCollectionUpdate(options: {
 
       function failure(error) {
         dispatch({
-          type: ACTIONS.COLLECTION_CREATE_FAILED,
+          type: ACTIONS.PUBLISHED_COLLECTION_CREATE_FAILED,
           data: {
             error: error.message,
           },

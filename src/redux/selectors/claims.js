@@ -559,8 +559,6 @@ export const selectMyCollectionIds = createSelector(
   state => state.myCollectionClaims
 );
 
-// selectMyCollectionUrls
-
 export const selectResolvingUris = createSelector(
   selectState,
   state => state.resolvingUris || []
