@@ -1,5 +1,5 @@
 // @flow
-import 'proxy-polyfill';
+// import 'proxy-polyfill';
 
 const CHECK_LBRYFIRST_STARTED_TRY_NUMBER = 200;
 //

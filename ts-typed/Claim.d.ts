@@ -1,16 +1,16 @@
 
 
-declare type Claim = StreamClaim | ChannelClaim;
+export declare type Claim = StreamClaim | ChannelClaim;
 
-declare type ChannelClaim = GenericClaim & {
+export declare type ChannelClaim = GenericClaim & {
   value: ChannelMetadata;
 };
 
-declare type StreamClaim = GenericClaim & {
+export declare type StreamClaim = GenericClaim & {
   value: StreamMetadata;
 };
 
-declare type GenericClaim = {
+export declare type GenericClaim = {
   address: string; // address associated with tx
   amount: string; // bid amount at time of tx
   canonical_url: string; // URL with short id, includes channel with short id
@@ -54,7 +54,7 @@ declare type GenericClaim = {
   };
 };
 
-declare type GenericMetadata = {
+export declare type GenericMetadata = {
   title?: string;
   description?: string;
   thumbnail?: {
@@ -65,7 +65,7 @@ declare type GenericMetadata = {
   locations?: Array<Location>;
 };
 
-declare type ChannelMetadata = GenericMetadata & {
+export declare type ChannelMetadata = GenericMetadata & {
   public_key: string;
   public_key_id: string;
   cover_url?: string;
@@ -74,7 +74,7 @@ declare type ChannelMetadata = GenericMetadata & {
   featured?: Array<string>;
 };
 
-declare type StreamMetadata = GenericMetadata & {
+export declare type StreamMetadata = GenericMetadata & {
   license?: string; // License "title" ex: Creative Commons, Custom copyright
   license_url?: string; // Link to full license
   release_time?: number; // linux timestamp
@@ -110,7 +110,7 @@ declare type StreamMetadata = GenericMetadata & {
   };
 };
 
-declare type Location = {
+export declare type Location = {
   latitude?: number;
   longitude?: number;
   country?: string;
@@ -119,13 +119,13 @@ declare type Location = {
   code?: string;
 };
 
-declare type Fee = {
+export declare type Fee = {
   amount: string;
   currency: string;
   address: string;
 };
 
-declare type PurchaseReceipt = {
+export declare type PurchaseReceipt = {
   address: string;
   amount: string;
   claim_id: string;
@@ -137,4 +137,4 @@ declare type PurchaseReceipt = {
   type: "purchase";
 };
 
-declare const isClaimNsfw: (claim: Claim) => boolean;
+export declare const isClaimNsfw: (claim: Claim) => boolean;

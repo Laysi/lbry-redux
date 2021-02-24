@@ -1,6 +1,4 @@
-declare namespace ABANDON_STATES {
-    const PENDING = 'pending';
-    const DONE = 'done';
-    const READY = 'ready';
-    const ERROR = 'error';
-}
+export const PENDING = 'pending';
+export const DONE = 'done';
+export const READY = 'ready';
+export const ERROR = 'error';

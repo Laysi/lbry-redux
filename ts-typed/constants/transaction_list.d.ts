@@ -1,5 +1,3 @@
 // PAGE SIZE
-declare namespace TX_LIST {
-    const PAGE_SIZE = 50;
-    const LATEST_PAGE_SIZE = 20;
-}
+export const PAGE_SIZE = 50;
+export const LATEST_PAGE_SIZE = 20;

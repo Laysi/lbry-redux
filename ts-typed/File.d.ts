@@ -1,5 +1,7 @@
+import { StreamMetadata } from './Claim';
+import * as ACTIONS from './constants/action_types';
 
-declare type FileListItem = {
+export declare type FileListItem = {
   metadata: StreamMetadata;
   added_on: number;
   blobs_completed: number;
@@ -40,12 +42,12 @@ declare type FileListItem = {
   written_bytes: number;
 };
 
-declare type FileState = {
+export declare type FileState = {
   failedPurchaseUris: Array<string>;
   purchasedUris: Array<string>;
 };
 
-declare type PurchaseUriCompleted = {
+export declare type PurchaseUriCompleted = {
   type: typeof ACTIONS.PURCHASE_URI_COMPLETED;
   data: {
     uri: string;
@@ -53,7 +55,7 @@ declare type PurchaseUriCompleted = {
   };
 };
 
-declare type PurchaseUriFailed = {
+export declare type PurchaseUriFailed = {
   type: typeof ACTIONS.PURCHASE_URI_FAILED;
   data: {
     uri: string;
@@ -61,7 +63,7 @@ declare type PurchaseUriFailed = {
   };
 };
 
-declare type PurchaseUriStarted = {
+export declare type PurchaseUriStarted = {
   type: typeof ACTIONS.PURCHASE_URI_STARTED;
   data: {
     uri: string;
@@ -69,7 +71,7 @@ declare type PurchaseUriStarted = {
   };
 };
 
-declare type DeletePurchasedUri = {
+export declare type DeletePurchasedUri = {
   type: typeof ACTIONS.CLEAR_PURCHASED_URI_SUCCESS;
   data: {
     uri: string;

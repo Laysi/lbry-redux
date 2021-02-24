@@ -1,3 +1,6 @@
+import { ChannelClaim, Claim, PurchaseReceipt, StreamClaim } from './Claim';
+import { Support, Transaction } from './Transaction'
+import { FileListItem } from './File'
 
 declare type StatusResponse = {
   blob_manager: {
@@ -78,10 +81,10 @@ declare type BalanceResponse = {
 
 declare type ResolveResponse = {
   // Keys are the url(s) passed to resolve
-  [key: string]: {error?: {};stream?: StreamClaim;channel?: ChannelClaim;claimsInChannel?: number;};
+  [key: string]: { error?: {}; stream?: StreamClaim; channel?: ChannelClaim; claimsInChannel?: number; };
 };
 
-declare type GetResponse = FileListItem & {error?: string;};
+declare type GetResponse = FileListItem & { error?: string; };
 
 declare type GenericTxResponse = {
   height: number;
@@ -155,7 +158,7 @@ declare type CommentReactListResponse = {
 
 declare type CommentHideResponse = {
   // keyed by the CommentIds entered
-  [key: string]: {hidden: boolean;};
+  [key: string]: { hidden: boolean; };
 };
 
 declare type CommentPinResponse = {
@@ -205,7 +208,7 @@ declare type SupportListResponse = {
   total_pages: number;
 };
 
-declare type BlobListResponse = {items: Array<string>;};
+declare type BlobListResponse = { items: Array<string>; };
 
 declare type WalletListResponse = Array<{
   id: string;
@@ -243,7 +246,7 @@ declare type StreamRepostOptions = {
 declare type StreamRepostResponse = GenericTxResponse;
 
 declare type PurchaseListResponse = {
-  items: Array<PurchaseReceipt & {claim: StreamClaim;}>;
+  items: Array<PurchaseReceipt & { claim: StreamClaim; }>;
   page: number;
   page_size: number;
   total_items: number;
@@ -261,7 +264,7 @@ declare type PurchaseListOptions = {
 //
 // Types used in the generic Lbry object that is exported
 //
-declare type LbryTypes = {
+export declare type LbryTypes = {
   isConnected: boolean;
   connectPromise: Promise<any> | null | undefined;
   connect: () => void;
@@ -310,7 +313,7 @@ declare type LbryTypes = {
   // File fetching and manipulation
   file_list: (params: {}) => Promise<FileListResponse>;
   file_delete: (params: {}) => Promise<boolean>;
-  file_set_status: (params = {}) => daemonCallWithResult('file_set_status', params),
+  file_set_status: (params: {}) => Promise<string>, //TODO: track down this method in api docs make sure the response type correct
   blob_delete: (params: {}) => Promise<string>;
   blob_list: (params: {}) => Promise<BlobListResponse>;
 

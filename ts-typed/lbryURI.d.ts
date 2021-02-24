@@ -39,13 +39,13 @@ declare const regexAddress:RegExp;
  *   - primaryBidPosition (int, if present)
  *   - secondaryBidPosition (int, if present)
  */
-declare function parseURI(url: string, requireProto?: boolean): LbryUrlObj;
+export declare function parseURI(url: string, requireProto?: boolean): LbryUrlObj;
 
 /** Takes a parseable LBRY URL and converts it to standard, canonical format */
-declare function normalizeURI(URL: string): string;
+export declare function normalizeURI(URL: string): string;
 
-declare function isURIValid(URL: string): boolean;
+export declare function isURIValid(URL: string): boolean;
 
-declare function isNameValid(claimName: string);
+export declare function isNameValid(claimName: string);
 
-declare function isURIClaimable(URL: string);
+export declare function isURIClaimable(URL: string);

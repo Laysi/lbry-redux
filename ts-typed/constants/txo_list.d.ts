@@ -1,38 +1,36 @@
-declare namespace TXO_LIST {
-    const ACTIVE = 'active'; // spent, active, all
-    const TYPE = 'type'; // all, payment, support, channel, stream, repost
-    const SUB_TYPE = 'subtype'; // other, purchase, tip
-    const PAGE_SIZE = 'page_size';
-    const PAGE = 'page';
-    const ALL = 'all';
-    // dropdown types
-    const SENT = 'sent';
-    const RECEIVED = 'received';
-    const SUPPORT = 'support';
-    const CHANNEL = 'channel';
-    const PUBLISH = 'publish';
-    const REPOST = 'repost';
-    const DROPDOWN_TYPES = [ALL, SENT, RECEIVED, SUPPORT, CHANNEL, PUBLISH, REPOST];
-    // dropdown subtypes
-    const TIP = 'tip';
-    const PURCHASE = 'purchase';
-    const PAYMENT = 'payment';
-    const DROPDOWN_SUBTYPES = [ALL, TIP, PURCHASE, PAYMENT];
+export const ACTIVE = 'active'; // spent, active, all
+export const TYPE = 'type'; // all, payment, support, channel, stream, repost
+export const SUB_TYPE = 'subtype'; // other, purchase, tip
+export const PAGE_SIZE = 'page_size';
+export const PAGE = 'page';
+export const ALL = 'all';
+// dropdown types
+export const SENT = 'sent';
+export const RECEIVED = 'received';
+export const SUPPORT = 'support';
+export const CHANNEL = 'channel';
+export const PUBLISH = 'publish';
+export const REPOST = 'repost';
+export const DROPDOWN_TYPES: string[];
+// dropdown subtypes
+export const TIP = 'tip';
+export const PURCHASE = 'purchase';
+export const PAYMENT = 'payment';
+export const DROPDOWN_SUBTYPES: string[];
 
-    // rpc params
-    const TX_TYPE = 'type'; // = other, stream, repost, channel, support, purchase
-    const IS_SPENT = 'is_spent';
-    const IS_NOT_SPENT = 'is_not_spent';
-    const IS_MY_INPUT = 'is_my_input';
-    const IS_MY_OUTPUT = 'is_my_output';
-    const IS_NOT_MY_INPUT = 'is_not_my_input';
-    const IS_NOT_MY_OUTPUT = 'is_not_my_output'; // use to further distinguish payments to self / from self.
-    const IS_MY_INPUT_OR_OUTPUT = 'is_my_input_or_output';
-    const EXCLUDE_INTERNAL_TRANSFERS = 'exclude_internal_transfers';
+// rpc params
+export const TX_TYPE = 'type'; // = other, stream, repost, channel, support, purchase
+export const IS_SPENT = 'is_spent';
+export const IS_NOT_SPENT = 'is_not_spent';
+export const IS_MY_INPUT = 'is_my_input';
+export const IS_MY_OUTPUT = 'is_my_output';
+export const IS_NOT_MY_INPUT = 'is_not_my_input';
+export const IS_NOT_MY_OUTPUT = 'is_not_my_output'; // use to further distinguish payments to self / from self.
+export const IS_MY_INPUT_OR_OUTPUT = 'is_my_input_or_output';
+export const EXCLUDE_INTERNAL_TRANSFERS = 'exclude_internal_transfers';
 
-    // sdk unique types
-    const OTHER = 'other';
-    const STREAM = 'stream';
+// sdk unique types
+export const OTHER = 'other';
+export const STREAM = 'stream';
 
-    const PAGE_SIZE_DEFAULT = 20;
-}
+export const PAGE_SIZE_DEFAULT = 20;

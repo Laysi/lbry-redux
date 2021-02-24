@@ -2,7 +2,7 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-require('proxy-polyfill');
+//require('proxy-polyfill');
 var uuid = require('uuid');
 var reselect = require('reselect');
 

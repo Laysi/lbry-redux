@@ -1,3 +1,4 @@
+import { StatusResponse, VersionResponse } from "./Lbry";
 
 declare type LbryFirstStatusResponse = {
   Version: string;
@@ -79,7 +80,7 @@ declare type YTSignupResponse = {};
 //
 // Types used in the generic LbryFirst object that is exported
 //
-declare type LbryFirstTypes = {
+export declare type LbryFirstTypes = {
   isConnected: boolean;
   connectPromise: Promise<any> | null | undefined;
   connect: () => void;
@@ -98,7 +99,7 @@ declare type LbryFirstTypes = {
   stop: () => Promise<string>;
   status: () => Promise<StatusResponse>;
   version: () => Promise<VersionResponse>;
-  upload: (params: { title: string, description: string, file_path: ?string }) => Promise<UploadResponse | null | undefined>;
+  upload: (params: { title: string, description: string, file_path?: string }) => Promise<UploadResponse | null | undefined>;
   hasYTAuth: (artokeng0: string) => Promise<HasYTAuthResponse>;
   ytSignup: () => Promise<YTSignupResponse>;
 };

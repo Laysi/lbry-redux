@@ -1,5 +1,5 @@
 
-declare type Transaction = {
+export declare type Transaction = {
   amount: number;
   claim_id: string;
   claim_name: string;
@@ -10,7 +10,7 @@ declare type Transaction = {
   date: Date;
 };
 
-declare type Support = {
+export declare type Support = {
   address: string;
   amount: string;
   claim_id: string;
