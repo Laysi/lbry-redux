@@ -73,5 +73,5 @@
   "engines": {
     "yarn": "^1.3"
   },
-  "types": "./typescript"
+  "types": "./ts-typed"
 }

@@ -87,18 +87,18 @@ declare type LbryFirstTypes = {
   apiRequestHeaders: {
     [key: string]: string;
   };
-  setApiHeader: (arg0: string, arg1: string) => void;
-  unsetApiHeader: (arg0: string) => void;
+  setApiHeader: (key: string, value: string) => void;
+  unsetApiHeader: (key: string) => void;
   overrides: {
     [key: string]: (...args: Array<any>) => any | null | undefined;
   };
-  setOverride: (arg0: string, arg1: (...args: Array<any>) => any) => void;
+  setOverride: (methodName: string, newMethod: (...args: Array<any>) => any) => void;
 
   // LbryFirst Methods
   stop: () => Promise<string>;
   status: () => Promise<StatusResponse>;
   version: () => Promise<VersionResponse>;
-  upload: (arg0: any) => Promise<UploadResponse | null | undefined>;
-  hasYTAuth: (arg0: string) => Promise<HasYTAuthResponse>;
+  upload: (params: { title: string, description: string, file_path: ?string }) => Promise<UploadResponse | null | undefined>;
+  hasYTAuth: (artokeng0: string) => Promise<HasYTAuthResponse>;
   ytSignup: () => Promise<YTSignupResponse>;
 };

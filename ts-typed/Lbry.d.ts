@@ -271,14 +271,17 @@ declare type LbryTypes = {
   apiRequestHeaders: {
     [key: string]: string;
   };
-  setDaemonConnectionString: (arg0: string) => void;
-  setApiHeader: (arg0: string, arg1: string) => void;
-  unsetApiHeader: (arg0: string) => void;
+  setDaemonConnectionString: (value: string) => void;
+  setApiHeader: (key: string, value: string) => void;
+  unsetApiHeader: (key: string) => void;
   overrides: {
     [key: string]: (...args: Array<any>) => any | null | undefined;
   };
-  setOverride: (arg0: string, arg1: (...args: Array<any>) => any) => void;
-  getMediaType: (arg0: string, arg1: string | null | undefined) => string;
+  setOverride: (methodName: string, newMethod: (...args: Array<any>) => any) => void;
+  getApiRequestHeaders: () => {
+    [key: string]: string;
+  };
+  getMediaType: (contentType: string, fileName: string | null | undefined) => string;
 
   // Lbry Methods
   stop: () => Promise<string>;
@@ -307,6 +310,7 @@ declare type LbryTypes = {
   // File fetching and manipulation
   file_list: (params: {}) => Promise<FileListResponse>;
   file_delete: (params: {}) => Promise<boolean>;
+  file_set_status: (params = {}) => daemonCallWithResult('file_set_status', params),
   blob_delete: (params: {}) => Promise<string>;
   blob_list: (params: {}) => Promise<BlobListResponse>;
 
