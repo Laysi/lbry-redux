@@ -136,3 +136,5 @@ declare type PurchaseReceipt = {
   txid: string;
   type: "purchase";
 };
+
+declare const isClaimNsfw: (claim: Claim) => boolean;

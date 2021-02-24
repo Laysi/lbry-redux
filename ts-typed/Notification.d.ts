@@ -22,7 +22,7 @@ declare type Toast = {
 };
 
 declare type DoToast = {
-  type: ACTIONS.CREATE_TOAST;
+  type: typeof ACTIONS.CREATE_TOAST;
   data: Toast;
 };
 
@@ -44,19 +44,19 @@ declare type Notification = {
 };
 
 declare type DoNotification = {
-  type: ACTIONS.CREATE_NOTIFICATION;
+  type: typeof ACTIONS.CREATE_NOTIFICATION;
   data: Notification;
 };
 
 declare type DoEditNotification = {
-  type: ACTIONS.EDIT_NOTIFICATION;
+  type: typeof ACTIONS.EDIT_NOTIFICATION;
   data: {
     notification: Notification;
   };
 };
 
 declare type DoDeleteNotification = {
-  type: ACTIONS.DELETE_NOTIFICATION;
+  type: typeof ACTIONS.DELETE_NOTIFICATION;
   data: {
     id: string; // The id to delete
   };
@@ -74,12 +74,12 @@ declare type ErrorNotification = {
 };
 
 declare type DoError = {
-  type: ACTIONS.CREATE_ERROR;
+  type: typeof ACTIONS.CREATE_ERROR;
   data: ErrorNotification;
 };
 
 declare type DoDismissError = {
-  type: ACTIONS.DISMISS_ERROR;
+  type: typeof ACTIONS.DISMISS_ERROR;
 };
 
 /*
