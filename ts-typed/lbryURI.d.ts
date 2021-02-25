@@ -49,3 +49,12 @@ export declare function isURIValid(URL: string): boolean;
 export declare function isNameValid(claimName: string);
 
 export declare function isURIClaimable(URL: string);
+
+/**
+ * Takes an object in the same format returned by parse() and builds a URI.
+ *
+ * The channelName key will accept names with or without the @ prefix.
+ */
+export function buildURI(UrlObj: LbryUrlObj, includeProto?: boolean, protoDefault?: string): string;
+
+export function convertToShareLink(URL: string):string;

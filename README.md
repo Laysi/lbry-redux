@@ -1,5 +1,6 @@
 # lbry-redux with typescript definition
 
+
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
 lbry-redux is a module which contains common React and redux code shared between lbry-desktop and lbry-android.

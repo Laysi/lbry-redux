@@ -1,16 +1,19 @@
 import { LbryTypes } from './Lbry'
 import { LbryFirstTypes } from './LbryFirst';
 
+
+//無視所有與do reduce action state有關的所有東西
+
 export * as ABANDON_STATES from './constants/abandon_states';// exports.ABANDON_STATES = abandon_states;
 export * as ACTIONS from './constants/action_types';// exports.ACTIONS = action_types;
 export * as CLAIM_VALUES from './constants/claim';// exports.CLAIM_VALUES = claim;
 export * as DAEMON_SETTINGS from './constants/daemon_settings';// exports.DAEMON_SETTINGS = daemon_settings;
-// exports.DEFAULT_FOLLOWED_TAGS = DEFAULT_FOLLOWED_TAGS;
-// exports.DEFAULT_KNOWN_TAGS = DEFAULT_KNOWN_TAGS;
+export { DEFAULT_FOLLOWED_TAGS } from './constants/tags';// exports.DEFAULT_FOLLOWED_TAGS = DEFAULT_FOLLOWED_TAGS;
+export { DEFAULT_KNOWN_TAGS } from './constants/tags';// exports.DEFAULT_KNOWN_TAGS = DEFAULT_KNOWN_TAGS;
 export * as LICENSES from './constants/licenses';// exports.LICENSES = licenses;
 export const Lbry: LbryTypes;// exports.Lbry = lbryProxy;
 export const LbryFirst: LbryFirstTypes;// exports.LbryFirst = lbryFirstProxy;
-// exports.MATURE_TAGS = MATURE_TAGS;
+export { MATURE_TAGS } from './constants/tags';// exports.MATURE_TAGS = MATURE_TAGS;
 export * as PAGES from './constants/pages';// exports.PAGES = pages;
 export * as SETTINGS from './constants/settings';// exports.SETTINGS = settings;
 export * as SHARED_PREFERENCES from './constants/shared_preferences';// exports.SHARED_PREFERENCES = shared_preferences;
@@ -20,15 +23,15 @@ export * as THUMBNAIL_STATUSES from './constants/thumbnail_upload_statuses';// e
 export * as TRANSACTIONS from './constants/transaction_types';// exports.TRANSACTIONS = transaction_types;
 export * as TXO_LIST from './constants/txo_list';// exports.TXO_LIST = txo_list;
 export * as TX_LIST from './constants/transaction_list';// exports.TX_LIST = transaction_list;
-// exports.apiCall = apiCall;
+export { apiCall } from './Lbry';// exports.apiCall = apiCall;
 // exports.batchActions = batchActions;
 // exports.buildSharedStateMiddleware = buildSharedStateMiddleware;
-// exports.buildURI = buildURI;
+export { buildURI } from './lbryURI';// exports.buildURI = buildURI;
 // exports.claimsReducer = claimsReducer;
 // exports.contentReducer = contentReducer;
-// exports.convertToShareLink = convertToShareLink;
-// exports.createNormalizedClaimSearchKey = createNormalizedClaimSearchKey;
-// exports.creditsToString = creditsToString;
+export { convertToShareLink } from './lbryURI';// exports.convertToShareLink = convertToShareLink;
+export { createNormalizedClaimSearchKey } from './Claim';// exports.createNormalizedClaimSearchKey = createNormalizedClaimSearchKey;
+export { creditsToString } from './FormatCredits';// exports.creditsToString = creditsToString;
 // exports.doAbandonClaim = doAbandonClaim;
 // exports.doAbandonTxo = doAbandonTxo;
 // exports.doBalanceSubscribe = doBalanceSubscribe;
@@ -91,8 +94,8 @@ export * as TX_LIST from './constants/transaction_list';// exports.TX_LIST = tra
 // exports.doWalletStatus = doWalletStatus;
 // exports.doWalletUnlock = doWalletUnlock;
 // exports.fileInfoReducer = fileInfoReducer;
-// exports.formatCredits = formatCredits;
-// exports.formatFullPrice = formatFullPrice;
+export { formatCredits } from './FormatCredits';// exports.formatCredits = formatCredits;
+export { formatFullPrice } from './FormatCredits';// exports.formatFullPrice = formatFullPrice;
 export { isClaimNsfw } from './Claim';// exports.isClaimNsfw = isClaimNsfw;
 export { isNameValid } from './lbryURI';// exports.isNameValid = isNameValid;
 export { isURIClaimable } from './lbryURI';// exports.isURIClaimable = isURIClaimable;
@@ -155,7 +158,7 @@ export { isURIValid } from './lbryURI';// exports.isURIValid = isURIValid;
 // exports.makeSelectUriIsStreamable = makeSelectUriIsStreamable;
 export { normalizeURI } from './lbryURI';// exports.normalizeURI = normalizeURI;
 // exports.notificationsReducer = notificationsReducer;
-// exports.parseQueryParams = parseQueryParams;
+export { parseQueryParams } from './QueryParams';// exports.parseQueryParams = parseQueryParams;
 export { parseURI } from './lbryURI';// exports.parseURI = parseURI;
 // exports.publishReducer = publishReducer;
 export { regexAddress } from './lbryURI';// exports.regexAddress = regexAddress;
@@ -275,7 +278,7 @@ export { regexInvalidURI } from './lbryURI';// exports.regexInvalidURI = regexIn
 // exports.selectWalletUnlockPending = selectWalletUnlockPending;
 // exports.selectWalletUnlockResult = selectWalletUnlockResult;
 // exports.selectWalletUnlockSucceeded = selectWalletUnlockSucceeded;
-// exports.toQueryString = toQueryString;
+export { toQueryString } from './QueryParams';// exports.toQueryString = toQueryString;
 // exports.walletReducer = walletReducer;
 
 

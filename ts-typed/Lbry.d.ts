@@ -348,3 +348,6 @@ export declare type LbryTypes = {
   // The app shouldn't need to do this
   utxo_release: () => Promise<any>;
 };
+
+
+export function apiCall(method: string, params: {} | null | undefined, resolve: (...args: Array<any>) => any, reject: (...args: Array<any>) => any);

@@ -138,3 +138,5 @@ export declare type PurchaseReceipt = {
 };
 
 export declare const isClaimNsfw: (claim: Claim) => boolean;
+
+export function createNormalizedClaimSearchKey(options: {page: number;release_time?: string;}):string;
