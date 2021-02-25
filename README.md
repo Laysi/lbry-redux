@@ -7,7 +7,7 @@ lbry-redux is a module which contains common React and redux code shared between
 
 ## Installation
 Add `lbry-redux` as a dependency to your `package.json` file.
-`"lbry-redux": "lbryio/lbry-redux"`
+`"lbry-redux": "Laysi/lbry-redux#typescript"`
 
 ### Local development
 If you intend to make changes to the module and test immediately, you can use `npm link` to add the package to your `node_modules` folder. This will create a symlink to the folder where `lbry-redux` was cloned to.
