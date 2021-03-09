@@ -26,7 +26,9 @@
     "precommit": "flow check && lint-staged",
     "lint": "eslint 'src/**/*.js' --fix",
     "format": "prettier 'src/**/*.{js,json}' --write",
-    "test": "jest"
+    "test": "jest",
+    "ts": "node ./api/merge.js"
+    
   },
   "dependencies": {
     "reselect": "^3.0.0",

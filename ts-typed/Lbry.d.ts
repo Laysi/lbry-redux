@@ -2,7 +2,10 @@ import { ChannelClaim, Claim, PurchaseReceipt, StreamClaim } from './Claim';
 import { Support, Transaction } from './Transaction'
 import { FileListItem } from './File'
 
-declare type StatusResponse = {
+type EqualityConstraints = '>' | '>=' | '<' | '<=';
+type EqualityConstraintsNumber = `${EqualityConstraints}${number}`
+
+export declare type StatusResponse = {
   blob_manager: {
     finished_blobs: number;
   };
@@ -58,7 +61,7 @@ declare type StatusResponse = {
   } | null | undefined;
 };
 
-declare type VersionResponse = {
+export declare type VersionResponse = {
   build: string;
   lbrynet_version: string;
   os_release: string;
@@ -68,7 +71,7 @@ declare type VersionResponse = {
   python_version: string;
 };
 
-declare type BalanceResponse = {
+export declare type BalanceResponse = {
   available: string;
   reserved: string;
   reserved_subtotals: {
@@ -79,14 +82,14 @@ declare type BalanceResponse = {
   total: string;
 };
 
-declare type ResolveResponse = {
+export declare type ResolveResponse = {
   // Keys are the url(s) passed to resolve
   [key: string]: { error?: {}; stream?: StreamClaim; channel?: ChannelClaim; claimsInChannel?: number; };
 };
 
-declare type GetResponse = FileListItem & { error?: string; };
+export declare type GetResponse = FileListItem & { error?: string; };
 
-declare type GenericTxResponse = {
+export declare type GenericTxResponse = {
   height: number;
   hex: string;
   inputs: Array<{}>;
@@ -97,13 +100,13 @@ declare type GenericTxResponse = {
   txid: string;
 };
 
-declare type PublishResponse = GenericTxResponse & {
+export declare type PublishResponse = GenericTxResponse & {
   // Only first value in outputs is a claim
   // That's the only value we care about
   outputs: Array<Claim>;
 };
 
-declare type ClaimSearchResponse = {
+export declare type ClaimSearchResponse = {
   items: Array<Claim>;
   page: number;
   page_size: number;
@@ -111,7 +114,7 @@ declare type ClaimSearchResponse = {
   total_pages: number;
 };
 
-declare type ClaimListResponse = {
+export declare type ClaimListResponse = {
   items: Array<ChannelClaim | Claim>;
   page: number;
   page_size: number;
@@ -119,18 +122,18 @@ declare type ClaimListResponse = {
   total_pages: number;
 };
 
-declare type ChannelCreateResponse = GenericTxResponse & {
+export declare type ChannelCreateResponse = GenericTxResponse & {
   outputs: Array<ChannelClaim>;
 };
 
-declare type ChannelUpdateResponse = GenericTxResponse & {
+export declare type ChannelUpdateResponse = GenericTxResponse & {
   outputs: Array<ChannelClaim>;
 };
 
-declare type CommentCreateResponse = Comment;
-declare type CommentUpdateResponse = Comment;
+export declare type CommentCreateResponse = Comment;
+export declare type CommentUpdateResponse = Comment;
 
-declare type CommentListResponse = {
+export declare type CommentListResponse = {
   items: Array<Comment>;
   page: number;
   page_size: number;
@@ -138,12 +141,12 @@ declare type CommentListResponse = {
   total_pages: number;
 };
 
-declare type MyReactions = {
+export declare type MyReactions = {
   // Keys are the commentId
   [key: string]: Array<string>;
 };
 
-declare type OthersReactions = {
+export declare type OthersReactions = {
   // Keys are the commentId
   [key: string]: {
     // Keys are the reaction_type, e.g. 'like'
@@ -151,27 +154,27 @@ declare type OthersReactions = {
   };
 };
 
-declare type CommentReactListResponse = {
+export declare type CommentReactListResponse = {
   my_reactions: Array<MyReactions>;
   others_reactions: Array<OthersReactions>;
 };
 
-declare type CommentHideResponse = {
+export declare type CommentHideResponse = {
   // keyed by the CommentIds entered
   [key: string]: { hidden: boolean; };
 };
 
-declare type CommentPinResponse = {
+export declare type CommentPinResponse = {
   // keyed by the CommentIds entered
   items: Comment;
 };
 
-declare type CommentAbandonResponse = {
+export declare type CommentAbandonResponse = {
   // keyed by the CommentId given
   abandoned: boolean;
 };
 
-declare type ChannelListResponse = {
+export declare type ChannelListResponse = {
   items: Array<ChannelClaim>;
   page: number;
   page_size: number;
@@ -179,12 +182,12 @@ declare type ChannelListResponse = {
   total_pages: number;
 };
 
-declare type ChannelSignResponse = {
+export declare type ChannelSignResponse = {
   signature: string;
   signing_ts: string;
 };
 
-declare type FileListResponse = {
+export declare type FileListResponse = {
   items: Array<FileListItem>;
   page: number;
   page_size: number;
@@ -192,7 +195,7 @@ declare type FileListResponse = {
   total_pages: number;
 };
 
-declare type TxListResponse = {
+export declare type TxListResponse = {
   items: Array<Transaction>;
   page: number;
   page_size: number;
@@ -200,7 +203,7 @@ declare type TxListResponse = {
   total_pages: number;
 };
 
-declare type SupportListResponse = {
+export declare type SupportListResponse = {
   items: Array<Support>;
   page: number;
   page_size: number;
@@ -208,27 +211,27 @@ declare type SupportListResponse = {
   total_pages: number;
 };
 
-declare type BlobListResponse = { items: Array<string>; };
+export declare type BlobListResponse = { items: Array<string>; };
 
-declare type WalletListResponse = Array<{
+export declare type WalletListResponse = Array<{
   id: string;
   name: string;
 }>;
 
-declare type WalletStatusResponse = {
+export declare type WalletStatusResponse = {
   is_encrypted: boolean;
   is_locked: boolean;
   is_syncing: boolean;
 };
 
-declare type SyncApplyResponse = {
+export declare type SyncApplyResponse = {
   hash: string;
   data: string;
 };
 
-declare type SupportAbandonResponse = GenericTxResponse;
+export declare type SupportAbandonResponse = GenericTxResponse;
 
-declare type StreamListResponse = {
+export declare type StreamListResponse = {
   items: Array<StreamClaim>;
   page: number;
   page_size: number;
@@ -236,16 +239,16 @@ declare type StreamListResponse = {
   total_pages: number;
 };
 
-declare type StreamRepostOptions = {
+export declare type StreamRepostOptions = {
   name: string;
   bid: string;
   claim_id: string;
   channel_id?: string;
 };
 
-declare type StreamRepostResponse = GenericTxResponse;
+export declare type StreamRepostResponse = GenericTxResponse;
 
-declare type PurchaseListResponse = {
+export declare type PurchaseListResponse = {
   items: Array<PurchaseReceipt & { claim: StreamClaim; }>;
   page: number;
   page_size: number;
@@ -253,7 +256,7 @@ declare type PurchaseListResponse = {
   total_pages: number;
 };
 
-declare type PurchaseListOptions = {
+export declare type PurchaseListOptions = {
   page: number;
   page_size: number;
   resolve: boolean;
@@ -264,6 +267,922 @@ declare type PurchaseListOptions = {
 //
 // Types used in the generic Lbry object that is exported
 //
+/**
+ * the params object of api command {resolve}
+ * @see LbryTypes.resolve()
+ */
+export interface ResolveParams {
+  /** one or more urls to resolve */
+  urls?:string[] 
+  /** wallet to check for claim purchase receipts */
+  wallet_id?:string 
+  /** URL of the new SDK server (EXPERIMENTAL) */
+  new_sdk_server?:string 
+  /** lookup and include a receipt if this wallet has purchased the claim being resolved */
+  include_purchase_receipt?:boolean 
+  /** lookup and include a boolean indicating if claim being resolved is yours */
+  include_is_my_output?:boolean 
+  /** lookup and sum the total amount of supports you've made to this claim */
+  include_sent_supports?:boolean 
+  /** lookup and sum the total amount of tips you've made to this claim (only makes sense when claim is not yours) */
+  include_sent_tips?:boolean 
+  /** lookup and sum the total amount of tips you've received to this claim (only makes sense when claim is yours) */
+  include_received_tips?:boolean 
+}
+/**
+ * the params object of api command {get}
+ * @see LbryTypes.get()
+ */
+export interface GetParams {
+  /** uri of the content to download */
+  uri?:string 
+  /** specified name for the downloaded file, overrides the stream file name */
+  file_name?:string 
+  /** full path to the directory to download into */
+  download_directory?:string 
+  /** download timeout in number of seconds */
+  timeout?:number 
+  /** save the file to the downloads directory */
+  save_file?:boolean 
+  /** wallet to check for claim purchase receipts */
+  wallet_id?:string 
+}
+/**
+ * the params object of api command {publish}
+ * @see LbryTypes.publish()
+ */
+export interface PublishParams {
+  /** name of the content (can only consist of a-z A-Z 0-9 and -(dash)) */
+  name:string 
+  /** amount to back the claim */
+  bid?:number 
+  /** path to file to be associated with name. */
+  file_path?:string 
+  /** validate that the video container and encodings match common web browser support or that optimization succeeds if specified. FFmpeg is required */
+  validate_file?:boolean 
+  /** transcode the video & audio if necessary to ensure common web browser support. FFmpeg is required */
+  optimize_file?:boolean 
+  /** specify fee currency */
+  fee_currency?:string 
+  /** content download fee */
+  fee_amount?:number 
+  /** address where to send fee payments, will use value from --claim_address if not provided */
+  fee_address?:string 
+  /** title of the publication */
+  title?:string 
+  /** description of the publication */
+  description?:string 
+  /** author of the publication. The usage for this field is not the same as for channels. The author field is used to credit an author who is not the publisher and is not represented by the channel. For example, a pdf file of 'The Odyssey' has an author of 'Homer' but may by published to a channel such as '@classics', or to no channel at all */
+  author?:string 
+  /** add content tags */
+  tags?:string[] 
+  /** languages used by the channel, using RFC 5646 format, eg: for English `--languages=en` for Spanish (Spain) `--languages=es-ES` for Spanish (Mexican) `--languages=es-MX` for Chinese (Simplified) `--languages=zh-Hans` for Chinese (Traditional) `--languages=zh-Hant` */
+  languages?:string[] 
+  /** locations relevant to the stream, consisting of 2 letter `country` code and a `state`, `city` and a postal `code` along with a `latitude` and `longitude`. for JSON RPC: pass a dictionary with aforementioned attributes as keys, eg: ... "locations": [{'country': 'US', 'state': 'NH'}] ... for command line: pass a colon delimited list with values in the following order: "COUNTRY:STATE:CITY:CODE:LATITUDE:LONGITUDE" making sure to include colon for blank values, for example to provide only the city: ... --locations="::Manchester" with all values set: ... --locations="US:NH:Manchester:03101:42.990605:-71.460989" optionally, you can just pass the "LATITUDE:LONGITUDE": ... --locations="42.990605:-71.460989" finally, you can also pass JSON string of dictionary on the command line as you would via JSON RPC ... --locations="{'country': 'US', 'state': 'NH'}" */
+  locations?:string[] 
+  /** publication license */
+  license?:string 
+  /** publication license url */
+  license_url?:string 
+  /** thumbnail url */
+  thumbnail_url?:string 
+  /** original public release of content, seconds since UNIX epoch */
+  release_time?:number 
+  /** image/video width, automatically calculated from media file */
+  width?:number 
+  /** image/video height, automatically calculated from media file */
+  height?:number 
+  /** audio/video duration in seconds, automatically calculated */
+  duration?:number 
+  /** claim id of the publisher channel */
+  channel_id?:string 
+  /** name of publisher channel */
+  channel_name?:string 
+  /** one or more account ids for accounts to look in for channel certificates, defaults to all accounts. */
+  channel_account_id?:string 
+  /** account to use for holding the transaction */
+  account_id?:string 
+  /** restrict operation to specific wallet */
+  wallet_id?:string 
+  /** ids of accounts to fund this transaction */
+  funding_account_ids?:string[] 
+  /** address where the claim is sent to, if not specified it will be determined automatically from the account */
+  claim_address?:string 
+  /** do not broadcast the transaction */
+  preview?:boolean 
+  /** wait until transaction is in mempool */
+  blocking?:boolean 
+}
+/**
+ * the params object of api command {claim_search}
+ * @see LbryTypes.claim_search()
+ */
+export interface ClaimSearchParams {
+  /** claim name (normalized) */
+  name?:string 
+  /** full text search */
+  text?:string 
+  /** full or partial claim id */
+  claim_id?:string 
+  /** list of full claim ids */
+  claim_ids?:string[] 
+  /** transaction id */
+  txid?:string 
+  /** position in the transaction */
+  nout?:string 
+  /** claims signed by this channel (argument is a URL which automatically gets resolved), see --channel_ids if you need to filter by multiple channels at the same time, includes claims with invalid signatures, use in conjunction with --valid_channel_signature */
+  channel?:string 
+  /** claims signed by any of these channels (arguments must be claim ids of the channels), includes claims with invalid signatures, implies --has_channel_signature, use in conjunction with --valid_channel_signature */
+  channel_ids?:string[] 
+  /** exclude claims signed by any of these channels (arguments must be claim ids of the channels) */
+  not_channel_ids?:string[] 
+  /** claims with a channel signature (valid or invalid) */
+  has_channel_signature?:boolean 
+  /** claims with a valid channel signature or no signature, use in conjunction with --has_channel_signature to only get claims with valid signatures */
+  valid_channel_signature?:boolean 
+  /** claims with invalid channel signature or no signature, use in conjunction with --has_channel_signature to only get claims with invalid signatures */
+  invalid_channel_signature?:boolean 
+  /** only return up to the specified number of claims per channel */
+  limit_claims_per_channel?:number 
+  /** winning claims of their respective name */
+  is_controlling?:boolean 
+  /** only return channels having this public key id, this is the same key as used in the wallet file to map channel certificate private keys: {'public_key_id': 'private key'} */
+  public_key_id?:string 
+  /** last updated block height (supports equality constraints) */
+  height?:number | EqualityConstraintsNumber
+  /** last updated timestamp (supports equality constraints) */
+  timestamp?:number | EqualityConstraintsNumber
+  /** created at block height (supports equality constraints) */
+  creation_height?:number | EqualityConstraintsNumber
+  /** created at timestamp (supports equality constraints) */
+  creation_timestamp?:number | EqualityConstraintsNumber
+  /** height at which claim starts competing for name (supports equality constraints) */
+  activation_height?:number | EqualityConstraintsNumber
+  /** height at which claim will expire (supports equality constraints) */
+  expiration_height?:number | EqualityConstraintsNumber
+  /** limit to claims self-described as having been released to the public on or after this UTC timestamp, when claim does not provide a release time the publish time is used instead (supports equality constraints) */
+  release_time?:number | EqualityConstraintsNumber
+  /** limit by claim value (supports equality constraints) */
+  amount?:number | EqualityConstraintsNumber
+  /** limit by supports and tips received (supports equality constraints) */
+  support_amount?:number | EqualityConstraintsNumber
+  /** limit by total value (initial claim value plus all tips and supports received), this amount is blank until claim has reached activation height (supports equality constraints) */
+  effective_amount?:number | EqualityConstraintsNumber
+  /** group numbers 1 through 4 representing the trending groups of the content: 4 means content is trending globally and independently, 3 means content is not trending globally but is trending independently (locally), 2 means it is trending globally but not independently and 1 means it's not trending globally or locally (supports equality constraints) */
+  trending_group?:number | EqualityConstraintsNumber
+  /** trending amount taken from the global or local value depending on the trending group: 4 - global value, 3 - local value, 2 - global value, 1 - local value (supports equality constraints) */
+  trending_mixed?:number | EqualityConstraintsNumber
+  /** trending value calculated relative only to the individual contents past history (supports equality constraints) */
+  trending_local?:number | EqualityConstraintsNumber
+  /** trending value calculated relative to all trending content globally (supports equality constraints) */
+  trending_global?:number | EqualityConstraintsNumber
+  /** all reposts of the specified original claim id */
+  reposted_claim_id?:string 
+  /** claims reposted this many times (supports equality constraints) */
+  reposted?:number | EqualityConstraintsNumber
+  /** filter by 'channel', 'stream' or 'unknown' */
+  claim_type?:string 
+  /** filter by 'video', 'image', 'document', etc */
+  stream_types?:string[] 
+  /** filter by 'video/mp4', 'image/png', etc */
+  media_types?:string[] 
+  /** specify fee currency: LBC, BTC, USD */
+  fee_currency?:string 
+  /** content download fee (supports equality constraints) */
+  fee_amount?:number | EqualityConstraintsNumber
+  /** duration of video or audio in seconds (supports equality constraints) */
+  duration?:number | EqualityConstraintsNumber
+  /** find claims containing any of the tags */
+  any_tags?:string[] 
+  /** find claims containing every tag */
+  all_tags?:string[] 
+  /** find claims not containing any of these tags */
+  not_tags?:string[] 
+  /** find claims containing any of the languages */
+  any_languages?:string[] 
+  /** find claims containing every language */
+  all_languages?:string[] 
+  /** find claims not containing any of these languages */
+  not_languages?:string[] 
+  /** find claims containing any of the locations */
+  any_locations?:string[] 
+  /** find claims containing every location */
+  all_locations?:string[] 
+  /** find claims not containing any of these locations */
+  not_locations?:string[] 
+  /** page to return during paginating */
+  page?:number 
+  /** number of items on page during pagination */
+  page_size?:number 
+  /** field to order by, default is descending order, to do an ascending order prepend ^ to the field name, eg. '^amount' available fields: 'name', 'height', 'release_time', 'publish_time', 'amount', 'effective_amount', 'support_amount', 'trending_group', 'trending_mixed', 'trending_local', 'trending_global', 'activation_height' */
+  order_by?:string[] 
+  /** do not calculate the total number of pages and items in result set (significant performance boost) */
+  no_totals?:boolean 
+  /** wallet to check for claim purchase receipts */
+  wallet_id?:string 
+  /** lookup and include a receipt if this wallet has purchased the claim */
+  include_purchase_receipt?:boolean 
+  /** lookup and include a boolean indicating if claim being resolved is yours */
+  include_is_my_output?:boolean 
+  /** URL of the new SDK server (EXPERIMENTAL) */
+  new_sdk_server?:string 
+}
+/**
+ * the params object of api command {claim_list}
+ * @see LbryTypes.claim_list()
+ */
+export interface ClaimListParams {
+  /** claim type: channel, stream, repost, collection */
+  claim_type?:string[] 
+  /** claim id */
+  claim_id?:string[] 
+  /** streams in this channel */
+  channel_id?:string[] 
+  /** claim name */
+  name?:string[] 
+  /** shows previous claim updates and abandons */
+  is_spent?:boolean 
+  /** id of the account to query */
+  account_id?:string 
+  /** restrict results to specific wallet */
+  wallet_id?:string 
+  /** page to return during paginating */
+  page?:number 
+  /** number of items on page during pagination */
+  page_size?:number 
+  /** resolves each claim to provide additional metadata */
+  resolve?:boolean 
+  /** field to order by: 'name', 'height', 'amount' */
+  order_by?:string 
+  /** do not calculate the total number of pages and items in result set (significant performance boost) */
+  no_totals?:boolean 
+  /** calculate the amount of tips received for claim outputs */
+  include_received_tips?:boolean 
+}
+/**
+ * the params object of api command {channel_create}
+ * @see LbryTypes.channel_create()
+ */
+export interface ChannelCreateParams {
+  /** name of the channel prefixed with '@' */
+  name:string 
+  /** amount to back the claim */
+  bid:number 
+  /** create new channel even if one already exists with given name. default: false. */
+  allow_duplicate_name?:boolean 
+  /** title of the publication */
+  title?:string 
+  /** description of the publication */
+  description?:string 
+  /** email of channel owner */
+  email?:string 
+  /** website url */
+  website_url?:string 
+  /** claim_ids of featured content in channel */
+  featured?:string[] 
+  /** content tags */
+  tags?:string[] 
+  /** languages used by the channel, using RFC 5646 format, eg: for English `--languages=en` for Spanish (Spain) `--languages=es-ES` for Spanish (Mexican) `--languages=es-MX` for Chinese (Simplified) `--languages=zh-Hans` for Chinese (Traditional) `--languages=zh-Hant` */
+  languages?:string[] 
+  /** locations of the channel, consisting of 2 letter `country` code and a `state`, `city` and a postal `code` along with a `latitude` and `longitude`. for JSON RPC: pass a dictionary with aforementioned attributes as keys, eg: ... "locations": [{'country': 'US', 'state': 'NH'}] ... for command line: pass a colon delimited list with values in the following order: "COUNTRY:STATE:CITY:CODE:LATITUDE:LONGITUDE" making sure to include colon for blank values, for example to provide only the city: ... --locations="::Manchester" with all values set: ... --locations="US:NH:Manchester:03101:42.990605:-71.460989" optionally, you can just pass the "LATITUDE:LONGITUDE": ... --locations="42.990605:-71.460989" finally, you can also pass JSON string of dictionary on the command line as you would via JSON RPC ... --locations="{'country': 'US', 'state': 'NH'}" */
+  locations?:string[] 
+  /** thumbnail url */
+  thumbnail_url?:string 
+  /** url of cover image */
+  cover_url?:string 
+  /** account to use for holding the transaction */
+  account_id?:string 
+  /** restrict operation to specific wallet */
+  wallet_id?:string 
+  /** ids of accounts to fund this transaction */
+  funding_account_ids?:string[] 
+  /** address where the channel is sent to, if not specified it will be determined automatically from the account */
+  claim_address?:string 
+  /** do not broadcast the transaction */
+  preview?:boolean 
+  /** wait until transaction is in mempool */
+  blocking?:boolean 
+}
+/**
+ * the params object of api command {channel_update}
+ * @see LbryTypes.channel_update()
+ */
+export interface ChannelUpdateParams {
+  /** claim_id of the channel to update */
+  claim_id:string 
+  /** amount to back the claim */
+  bid?:number 
+  /** title of the publication */
+  title?:string 
+  /** description of the publication */
+  description?:string 
+  /** email of channel owner */
+  email?:string 
+  /** website url */
+  website_url?:string 
+  /** claim_ids of featured content in channel */
+  featured?:string[] 
+  /** clear existing featured content (prior to adding new ones) */
+  clear_featured?:boolean 
+  /** add content tags */
+  tags?:string[] 
+  /** clear existing tags (prior to adding new ones) */
+  clear_tags?:boolean 
+  /** languages used by the channel, using RFC 5646 format, eg: for English `--languages=en` for Spanish (Spain) `--languages=es-ES` for Spanish (Mexican) `--languages=es-MX` for Chinese (Simplified) `--languages=zh-Hans` for Chinese (Traditional) `--languages=zh-Hant` */
+  languages?:string[] 
+  /** clear existing languages (prior to adding new ones) */
+  clear_languages?:boolean 
+  /** locations of the channel, consisting of 2 letter `country` code and a `state`, `city` and a postal `code` along with a `latitude` and `longitude`. for JSON RPC: pass a dictionary with aforementioned attributes as keys, eg: ... "locations": [{'country': 'US', 'state': 'NH'}] ... for command line: pass a colon delimited list with values in the following order: "COUNTRY:STATE:CITY:CODE:LATITUDE:LONGITUDE" making sure to include colon for blank values, for example to provide only the city: ... --locations="::Manchester" with all values set: ... --locations="US:NH:Manchester:03101:42.990605:-71.460989" optionally, you can just pass the "LATITUDE:LONGITUDE": ... --locations="42.990605:-71.460989" finally, you can also pass JSON string of dictionary on the command line as you would via JSON RPC ... --locations="{'country': 'US', 'state': 'NH'}" */
+  locations?:string[] 
+  /** clear existing locations (prior to adding new ones) */
+  clear_locations?:boolean 
+  /** thumbnail url */
+  thumbnail_url?:string 
+  /** url of cover image */
+  cover_url?:string 
+  /** account in which to look for channel (default: all) */
+  account_id?:string 
+  /** restrict operation to specific wallet */
+  wallet_id?:string 
+  /** ids of accounts to fund this transaction */
+  funding_account_ids?:string[] 
+  /** address where the channel is sent */
+  claim_address?:string 
+  /** generate a new signing key, will invalidate all previous publishes */
+  new_signing_key?:boolean 
+  /** do not broadcast the transaction */
+  preview?:boolean 
+  /** wait until transaction is in mempool */
+  blocking?:boolean 
+  /** instead of modifying specific values on the channel, this will clear all existing values and only save passed in values, useful for form submissions where all values are always set */
+  replace?:boolean 
+}
+/**
+ * the params object of api command {channel_import}
+ * @see LbryTypes.channel_import()
+ */
+export interface ChannelImportParams {
+  /** serialized channel, as exported by channel export */
+  channel_data:string 
+  /** import into specific wallet */
+  wallet_id?:string 
+}
+/**
+ * the params object of api command {channel_list}
+ * @see LbryTypes.channel_list()
+ */
+export interface ChannelListParams {
+  /** channel name */
+  name?:string[] 
+  /** channel id */
+  claim_id?:string[] 
+  /** shows previous channel updates and abandons */
+  is_spent?:boolean 
+  /** id of the account to use */
+  account_id?:string 
+  /** restrict results to specific wallet */
+  wallet_id?:string 
+  /** page to return during paginating */
+  page?:number 
+  /** number of items on page during pagination */
+  page_size?:number 
+  /** resolves each channel to provide additional metadata */
+  resolve?:boolean 
+  /** do not calculate the total number of pages and items in result set (significant performance boost) */
+  no_totals?:boolean 
+}
+/**
+ * the params object of api command {channel_sign}
+ * @see LbryTypes.channel_sign()
+ */
+export interface ChannelSignParams {
+  /** name of channel used to sign (or use channel id) */
+  channel_name?:string 
+  /** claim id of channel used to sign (or use channel name) */
+  channel_id?:string 
+  /** data to sign, encoded as hexadecimal */
+  hexdata?:string 
+  /** one or more account ids for accounts to look in for channel certificates, defaults to all accounts. */
+  channel_account_id?:string 
+  /** restrict operation to specific wallet */
+  wallet_id?:string 
+}
+/**
+ * the params object of api command {stream_abandon}
+ * @see LbryTypes.stream_abandon()
+ */
+export interface StreamAbandonParams {
+  /** claim_id of the claim to abandon */
+  claim_id?:string 
+  /** txid of the claim to abandon */
+  txid?:string 
+  /** nout of the claim to abandon */
+  nout?:number 
+  /** id of the account to use */
+  account_id?:string 
+  /** restrict operation to specific wallet */
+  wallet_id?:string 
+  /** do not broadcast the transaction */
+  preview?:boolean 
+  /** wait until abandon is in mempool */
+  blocking?:boolean 
+}
+/**
+ * the params object of api command {stream_list}
+ * @see LbryTypes.stream_list()
+ */
+export interface StreamListParams {
+  /** stream name */
+  name?:string[] 
+  /** stream id */
+  claim_id?:string[] 
+  /** shows previous stream updates and abandons */
+  is_spent?:boolean 
+  /** id of the account to query */
+  account_id?:string 
+  /** restrict results to specific wallet */
+  wallet_id?:string 
+  /** page to return during paginating */
+  page?:number 
+  /** number of items on page during pagination */
+  page_size?:number 
+  /** resolves each stream to provide additional metadata */
+  resolve?:boolean 
+  /** do not calculate the total number of pages and items in result set (significant performance boost) */
+  no_totals?:boolean 
+}
+/**
+ * the params object of api command {channel_abandon}
+ * @see LbryTypes.channel_abandon()
+ */
+export interface ChannelAbandonParams {
+  /** claim_id of the claim to abandon */
+  claim_id?:string 
+  /** txid of the claim to abandon */
+  txid?:string 
+  /** nout of the claim to abandon */
+  nout?:number 
+  /** id of the account to use */
+  account_id?:string 
+  /** restrict operation to specific wallet */
+  wallet_id?:string 
+  /** do not broadcast the transaction */
+  preview?:boolean 
+  /** wait until abandon is in mempool */
+  blocking?:boolean 
+}
+/**
+ * the params object of api command {support_create}
+ * @see LbryTypes.support_create()
+ */
+export interface SupportCreateParams {
+  /** claim_id of the claim to support */
+  claim_id:string 
+  /** amount of support */
+  amount:number 
+  /** send support to claim owner, default: false. */
+  tip?:boolean 
+  /** claim id of the supporters identity channel */
+  channel_id?:string 
+  /** name of the supporters identity channel */
+  channel_name?:string 
+  /** one or more account ids for accounts to look in for channel certificates, defaults to all accounts. */
+  channel_account_id?:string 
+  /** account to use for holding the transaction */
+  account_id?:string 
+  /** restrict operation to specific wallet */
+  wallet_id?:string 
+  /** ids of accounts to fund this transaction */
+  funding_account_ids?:string[] 
+  /** do not broadcast the transaction */
+  preview?:boolean 
+  /** wait until transaction is in mempool */
+  blocking?:boolean 
+}
+/**
+ * the params object of api command {support_list}
+ * @see LbryTypes.support_list()
+ */
+export interface SupportListParams {
+  /** claim name */
+  name?:string[] 
+  /** claim id */
+  claim_id?:string[] 
+  /** only show received (tips) */
+  received?:boolean 
+  /** only show sent (tips) */
+  sent?:boolean 
+  /** only show my staked supports */
+  staked?:boolean 
+  /** show abandoned supports */
+  is_spent?:boolean 
+  /** id of the account to query */
+  account_id?:string 
+  /** restrict results to specific wallet */
+  wallet_id?:string 
+  /** page to return during paginating */
+  page?:number 
+  /** number of items on page during pagination */
+  page_size?:number 
+  /** do not calculate the total number of pages and items in result set (significant performance boost) */
+  no_totals?:boolean 
+}
+/**
+ * the params object of api command {support_abandon}
+ * @see LbryTypes.support_abandon()
+ */
+export interface SupportAbandonParams {
+  /** claim_id of the support to abandon */
+  claim_id?:string 
+  /** txid of the claim to abandon */
+  txid?:string 
+  /** nout of the claim to abandon */
+  nout?:number 
+  /** amount of lbc to keep as support */
+  keep?:number 
+  /** id of the account to use */
+  account_id?:string 
+  /** restrict operation to specific wallet */
+  wallet_id?:string 
+  /** do not broadcast the transaction */
+  preview?:boolean 
+  /** wait until abandon is in mempool */
+  blocking?:boolean 
+}
+/**
+ * the params object of api command {file_list}
+ * @see LbryTypes.file_list()
+ */
+export interface FileListParams {
+  /** get file with matching sd hash */
+  sd_hash?:string 
+  /** get file with matching file name in the downloads folder */
+  file_name?:string 
+  /** get file with matching stream hash */
+  stream_hash?:string 
+  /** get file with matching row id */
+  rowid?:number 
+  /** get file with matching time of insertion */
+  added_on?:number 
+  /** get file with matching claim id(s) */
+  claim_id?:string 
+  /** get file with matching claim outpoint(s) */
+  outpoint?:string 
+  /** get file with matching claim txid */
+  txid?:string 
+  /** get file with matching claim nout */
+  nout?:number 
+  /** get file with matching channel claim id(s) */
+  channel_claim_id?:string 
+  /** get file with matching channel name */
+  channel_name?:string 
+  /** get file with matching claim name */
+  claim_name?:string 
+  /** get file with matching blobs in stream */
+  blobs_in_stream?:number 
+  /** get file with matching download path */
+  download_path?:string 
+  /** get files currently uploading to reflector */
+  uploading_to_reflector?:boolean 
+  /** get files that have been uploaded to reflector */
+  is_fully_reflected?:boolean 
+  /** match by status, ( running | finished | stopped ) */
+  status?:string 
+  /** match only completed */
+  completed?:boolean 
+  /** amount of remaining blobs to download */
+  blobs_remaining?:number 
+  /** field to sort by (one of the above filter fields) */
+  sort?:string 
+  /** logical comparison, (eq | ne | g | ge | l | le | in) */
+  comparison?:string 
+  /** page to return during paginating */
+  page?:number 
+  /** number of items on page during pagination */
+  page_size?:number 
+  /** add purchase receipts from this wallet */
+  wallet_id?:string 
+}
+/**
+ * the params object of api command {file_delete}
+ * @see LbryTypes.file_delete()
+ */
+export interface FileDeleteParams {
+  /** delete file from download directory, instead of just deleting blobs */
+  delete_from_download_dir?:boolean 
+  /** if there are multiple matching files, allow the deletion of multiple files. Otherwise do not delete anything. */
+  delete_all?:boolean 
+  /** delete by file sd hash */
+  sd_hash?:string 
+  /** delete by file name in downloads folder */
+  file_name?:string 
+  /** delete by file stream hash */
+  stream_hash?:string 
+  /** delete by file row id */
+  rowid?:number 
+  /** delete by file claim id */
+  claim_id?:string 
+  /** delete by file claim txid */
+  txid?:string 
+  /** delete by file claim nout */
+  nout?:number 
+  /** delete by file claim name */
+  claim_name?:string 
+  /** delete by file channel claim id */
+  channel_claim_id?:string 
+  /** delete by file channel claim name */
+  channel_name?:string 
+}
+/**
+ * the params object of api command {file_set_status}
+ * @see LbryTypes.file_set_status()
+ */
+export interface FileSetStatusParams {
+  /** one of "start" or "stop" */
+  status:string 
+  /** set status of file with matching sd hash */
+  sd_hash?:string 
+  /** set status of file with matching file name in the downloads folder */
+  file_name?:string 
+  /** set status of file with matching stream hash */
+  stream_hash?:string 
+  /** set status of file with matching row id */
+  rowid?:number 
+}
+/**
+ * the params object of api command {blob_delete}
+ * @see LbryTypes.blob_delete()
+ */
+export interface BlobDeleteParams {
+  /** blob hash of the blob to delete */
+  blob_hash:string 
+}
+/**
+ * the params object of api command {blob_list}
+ * @see LbryTypes.blob_list()
+ */
+export interface BlobListParams {
+  /** only return needed blobs */
+  needed?:boolean 
+  /** only return finished blobs */
+  finished?:boolean 
+  /** filter blobs by stream in a uri */
+  uri?:string 
+  /** filter blobs by stream hash */
+  stream_hash?:string 
+  /** filter blobs by sd hash */
+  sd_hash?:string 
+  /** page to return during paginating */
+  page?:number 
+  /** number of items on page during pagination */
+  page_size?:number 
+}
+/**
+ * the params object of api command {preference_get}
+ * @see LbryTypes.preference_get()
+ */
+export interface PreferenceGetParams {
+  /** key associated with value */
+  key?:string 
+  /** restrict operation to specific wallet */
+  wallet_id?:string 
+}
+/**
+ * the params object of api command {preference_set}
+ * @see LbryTypes.preference_set()
+ */
+export interface PreferenceSetParams {
+  /** key associated with value */
+  key:string 
+  /** key associated with value */
+  value:string 
+  /** restrict operation to specific wallet */
+  wallet_id?:string 
+}
+/**
+ * the params object of api command {comment_list}
+ * @see LbryTypes.comment_list()
+ */
+export interface CommentListParams {
+  /** The claim on which the comment will be made on */
+  claim_id:string 
+  /** CommentId of a specific thread you'd like to see */
+  parent_id?:string 
+  /** The page you'd like to see in the comment list. */
+  page?:number 
+  /** The amount of comments that you'd like to retrieve */
+  page_size?:number 
+  /** Skip resolving comments to validate channel names */
+  skip_validation?:boolean 
+  /** Whether or not you want to include replies in list */
+  include_replies?:boolean 
+  /** Only include comments with valid signatures. [Warning: Paginated total size will not change, even if list reduces] */
+  is_channel_signature_valid?:boolean 
+  /** Select only Visible Comments */
+  visible?:boolean 
+  /** Select only Hidden Comments */
+  hidden?:boolean 
+}
+/**
+ * the params object of api command {comment_create}
+ * @see LbryTypes.comment_create()
+ */
+export interface CommentCreateParams {
+  /** Comment to be made, should be at most 2000 characters. */
+  comment:string 
+  /** The ID of the claim to comment on */
+  claim_id:string 
+  /** The ID of a comment to make a response to */
+  parent_id?:string 
+  /** The ID of the channel you want to post under */
+  channel_id?:string 
+  /** The channel you want to post as, prepend with a '@' */
+  channel_name?:string 
+  /** one or more account ids for accounts to look in for channel certificates, defaults to all accounts */
+  channel_account_id?:string 
+  /** restrict operation to specific wallet */
+  wallet_id?:string 
+}
+/**
+ * the params object of api command {comment_update}
+ * @see LbryTypes.comment_update()
+ */
+export interface CommentUpdateParams {
+  /** New comment replacing the old one */
+  comment:string 
+  /** Hash identifying the comment to edit */
+  comment_id:string 
+  /** restrict operation to specific wallet */
+  wallet_id?:string 
+}
+/**
+ * the params object of api command {comment_hide}
+ * @see LbryTypes.comment_hide()
+ */
+export interface CommentHideParams {
+  /** one or more comment_id to hide. */
+  comment_ids?:string[] 
+  /** restrict operation to specific wallet */
+  wallet_id?:string 
+}
+/**
+ * the params object of api command {comment_abandon}
+ * @see LbryTypes.comment_abandon()
+ */
+export interface CommentAbandonParams {
+  /** The ID of the comment to be abandoned. */
+  comment_id:string 
+  /** restrict operation to specific wallet */
+  wallet_id?:string 
+}
+/**
+ * the params object of api command {wallet_balance}
+ * @see LbryTypes.wallet_balance()
+ */
+export interface WalletBalanceParams {
+  /** balance for specific wallet */
+  wallet_id?:string 
+  /** Only include transactions with this many confirmed blocks. */
+  confirmations?:number 
+}
+/**
+ * the params object of api command {wallet_decrypt}
+ * @see LbryTypes.wallet_decrypt()
+ */
+export interface WalletDecryptParams {
+  /** restrict operation to specific wallet */
+  wallet_id?:string 
+}
+/**
+ * the params object of api command {wallet_encrypt}
+ * @see LbryTypes.wallet_encrypt()
+ */
+export interface WalletEncryptParams {
+  /** password to encrypt account */
+  new_password:string 
+  /** restrict operation to specific wallet */
+  wallet_id?:string 
+}
+/**
+ * the params object of api command {wallet_unlock}
+ * @see LbryTypes.wallet_unlock()
+ */
+export interface WalletUnlockParams {
+  /** password to use for unlocking */
+  password:string 
+  /** restrict operation to specific wallet */
+  wallet_id?:string 
+}
+/**
+ * the params object of api command {wallet_list}
+ * @see LbryTypes.wallet_list()
+ */
+export interface WalletListParams {
+  /** show specific wallet only */
+  wallet_id?:string 
+  /** page to return during paginating */
+  page?:number 
+  /** number of items on page during pagination */
+  page_size?:number 
+}
+/**
+ * the params object of api command {wallet_send}
+ * @see LbryTypes.wallet_send()
+ */
+export interface WalletSendParams {
+  /** restrict operation to specific wallet */
+  wallet_id?:string 
+  /** account where change will go */
+  change_account_id?:string 
+  /** accounts to fund the transaction */
+  funding_account_ids?:string 
+  /** do not broadcast the transaction */
+  preview?:boolean 
+  /** wait until tx has synced */
+  blocking?:boolean 
+}
+/**
+ * the params object of api command {wallet_status}
+ * @see LbryTypes.wallet_status()
+ */
+export interface WalletStatusParams {
+  /** status of specific wallet */
+  wallet_id?:string 
+}
+/**
+ * the params object of api command {address_is_mine}
+ * @see LbryTypes.address_is_mine()
+ */
+export interface AddressIsMineParams {
+  /** address to check */
+  address:string 
+  /** id of the account to use */
+  account_id?:string 
+  /** restrict operation to specific wallet */
+  wallet_id?:string 
+}
+/**
+ * the params object of api command {address_unused}
+ * @see LbryTypes.address_unused()
+ */
+export interface AddressUnusedParams {
+  /** id of the account to use */
+  account_id?:string 
+  /** restrict operation to specific wallet */
+  wallet_id?:string 
+}
+/**
+ * the params object of api command {address_list}
+ * @see LbryTypes.address_list()
+ */
+export interface AddressListParams {
+  /** just show details for single address */
+  address?:string 
+  /** id of the account to use */
+  account_id?:string 
+  /** restrict operation to specific wallet */
+  wallet_id?:string 
+  /** page to return during paginating */
+  page?:number 
+  /** number of items on page during pagination */
+  page_size?:number 
+}
+/**
+ * the params object of api command {transaction_list}
+ * @see LbryTypes.transaction_list()
+ */
+export interface TransactionListParams {
+  /** id of the account to query */
+  account_id?:string 
+  /** restrict results to specific wallet */
+  wallet_id?:string 
+  /** page to return during paginating */
+  page?:number 
+  /** number of items on page during pagination */
+  page_size?:number 
+}
+/**
+ * the params object of api command {sync_hash}
+ * @see LbryTypes.sync_hash()
+ */
+export interface SyncHashParams {
+  /** wallet for which to generate hash */
+  wallet_id?:string 
+}
+/**
+ * the params object of api command {sync_apply}
+ * @see LbryTypes.sync_apply()
+ */
+export interface SyncApplyParams {
+  /** password to decrypt incoming and encrypt outgoing data */
+  password?:string 
+  /** incoming sync data, if any */
+  data?:string 
+  /** wallet being sync'ed */
+  wallet_id?:string 
+  /** wait until any new accounts have sync'ed */
+  blocking?:boolean 
+}
 export declare type LbryTypes = {
   isConnected: boolean;
   connectPromise: Promise<any> | null | undefined;
@@ -293,7 +1212,8 @@ export declare type LbryTypes = {
   /**
    * Get the claim that a URL refers to.
    * 
-   * @param params Command args obj
+   * @see {ResolveParams}
+   * @param {ResolveParams} params Command args obj
    * @param {string[]} [params.urls] one or more urls to resolve
    * @param {string} [params.wallet_id] wallet to check for claim purchase receipts
    * @param {string} [params.new_sdk_server] URL of the new SDK server (EXPERIMENTAL)
@@ -303,11 +1223,12 @@ export declare type LbryTypes = {
    * @param {boolean} [params.include_sent_tips] lookup and sum the total amount of tips you've made to this claim (only makes sense when claim is not yours)
    * @param {boolean} [params.include_received_tips] lookup and sum the total amount of tips you've received to this claim (only makes sense when claim is yours)
    */
-  resolve: (params: {urls?:string[],wallet_id?:string,new_sdk_server?:string,include_purchase_receipt?:boolean,include_is_my_output?:boolean,include_sent_supports?:boolean,include_sent_tips?:boolean,include_received_tips?:boolean}) => Promise<ResolveResponse>;
+  resolve(params: ResolveParams): Promise<ResolveResponse>;
   /**
    * Download stream from a LBRY name.
    * 
-   * @param params Command args obj
+   * @see {GetParams}
+   * @param {GetParams} params Command args obj
    * @param {string} [params.uri] uri of the content to download
    * @param {string} [params.file_name] specified name for the downloaded file, overrides the stream file name
    * @param {string} [params.download_directory] full path to the directory to download into
@@ -315,11 +1236,12 @@ export declare type LbryTypes = {
    * @param {boolean} [params.save_file] save the file to the downloads directory
    * @param {string} [params.wallet_id] wallet to check for claim purchase receipts
    */
-  get: (params: {uri?:string,file_name?:string,download_directory?:string,timeout?:number,save_file?:boolean,wallet_id?:string}) => Promise<GetResponse>;
+  get(params: GetParams): Promise<GetResponse>;
   /**
    * Create or replace a stream claim at a given name (use 'stream create/update' for more control).
    * 
-   * @param params Command args obj
+   * @see {PublishParams}
+   * @param {PublishParams} params Command args obj
    * @param {string} [params.name] name of the content (can only consist of a-z A-Z 0-9 and -(dash))
    * @param {number} [params.bid] amount to back the claim
    * @param {string} [params.file_path] path to file to be associated with name.
@@ -351,7 +1273,7 @@ export declare type LbryTypes = {
    * @param {boolean} [params.preview] do not broadcast the transaction
    * @param {boolean} [params.blocking] wait until transaction is in mempool
    */
-  publish: (params: {name:string,bid?:number,file_path?:string,validate_file?:boolean,optimize_file?:boolean,fee_currency?:string,fee_amount?:number,fee_address?:string,title?:string,description?:string,author?:string,tags?:string[],languages?:string[],locations?:string[],license?:string,license_url?:string,thumbnail_url?:string,release_time?:number,width?:number,height?:number,duration?:number,channel_id?:string,channel_name?:string,channel_account_id?:string,account_id?:string,wallet_id?:string,funding_account_ids?:string[],claim_address?:string,preview?:boolean,blocking?:boolean}) => Promise<PublishResponse>;
+  publish(params: PublishParams): Promise<PublishResponse>;
 
   /**
    * Search for stream and channel claims on the blockchain.
@@ -360,7 +1282,8 @@ Arguments marked with "supports equality constraints" allow prepending the
 value with an equality constraint such as '>', '>=', '<' and '<='
 eg. --height=">400000" would limit results to only claims above 400k block height.
    * 
-   * @param params Command args obj
+   * @see {ClaimSearchParams}
+   * @param {ClaimSearchParams} params Command args obj
    * @param {string} [params.name] claim name (normalized)
    * @param {string} [params.text] full text search
    * @param {string} [params.claim_id] full or partial claim id
@@ -416,11 +1339,12 @@ eg. --height=">400000" would limit results to only claims above 400k block heigh
    * @param {boolean} [params.include_is_my_output] lookup and include a boolean indicating if claim being resolved is yours
    * @param {string} [params.new_sdk_server] URL of the new SDK server (EXPERIMENTAL)
    */
-  claim_search: (params: {name?:string,text?:string,claim_id?:string,claim_ids?:string[],txid?:string,nout?:string,channel?:string,channel_ids?:string[],not_channel_ids?:string[],has_channel_signature?:boolean,valid_channel_signature?:boolean,invalid_channel_signature?:boolean,limit_claims_per_channel?:number,is_controlling?:boolean,public_key_id?:string,height?:number,timestamp?:number,creation_height?:number,creation_timestamp?:number,activation_height?:number,expiration_height?:number,release_time?:number,amount?:number,support_amount?:number,effective_amount?:number,trending_group?:number,trending_mixed?:number,trending_local?:number,trending_global?:number,reposted_claim_id?:string,reposted?:number,claim_type?:string,stream_types?:string[],media_types?:string[],fee_currency?:string,fee_amount?:number,duration?:number,any_tags?:string[],all_tags?:string[],not_tags?:string[],any_languages?:string[],all_languages?:string[],not_languages?:string[],any_locations?:string[],all_locations?:string[],not_locations?:string[],page?:number,page_size?:number,order_by?:string[],no_totals?:boolean,wallet_id?:string,include_purchase_receipt?:boolean,include_is_my_output?:boolean,new_sdk_server?:string}) => Promise<ClaimSearchResponse>;
+  claim_search(params: ClaimSearchParams): Promise<ClaimSearchResponse>;
   /**
    * List my stream and channel claims.
    * 
-   * @param params Command args obj
+   * @see {ClaimListParams}
+   * @param {ClaimListParams} params Command args obj
    * @param {string[]} [params.claim_type] claim type: channel, stream, repost, collection
    * @param {string[]} [params.claim_id] claim id
    * @param {string[]} [params.channel_id] streams in this channel
@@ -435,11 +1359,12 @@ eg. --height=">400000" would limit results to only claims above 400k block heigh
    * @param {boolean} [params.no_totals] do not calculate the total number of pages and items in result set (significant performance boost)
    * @param {boolean} [params.include_received_tips] calculate the amount of tips received for claim outputs
    */
-  claim_list: (params: {claim_type?:string[],claim_id?:string[],channel_id?:string[],name?:string[],is_spent?:boolean,account_id?:string,wallet_id?:string,page?:number,page_size?:number,resolve?:boolean,order_by?:string,no_totals?:boolean,include_received_tips?:boolean}) => Promise<ClaimListResponse>;
+  claim_list(params: ClaimListParams): Promise<ClaimListResponse>;
   /**
    * Create a new channel by generating a channel private key and establishing an '@' prefixed claim.
    * 
-   * @param params Command args obj
+   * @see {ChannelCreateParams}
+   * @param {ChannelCreateParams} params Command args obj
    * @param {string} [params.name] name of the channel prefixed with '@'
    * @param {number} [params.bid] amount to back the claim
    * @param {boolean} [params.allow_duplicate_name] create new channel even if one already exists with given name. default: false.
@@ -460,11 +1385,12 @@ eg. --height=">400000" would limit results to only claims above 400k block heigh
    * @param {boolean} [params.preview] do not broadcast the transaction
    * @param {boolean} [params.blocking] wait until transaction is in mempool
    */
-  channel_create: (params: {name:string,bid:number,allow_duplicate_name?:boolean,title?:string,description?:string,email?:string,website_url?:string,featured?:string[],tags?:string[],languages?:string[],locations?:string[],thumbnail_url?:string,cover_url?:string,account_id?:string,wallet_id?:string,funding_account_ids?:string[],claim_address?:string,preview?:boolean,blocking?:boolean}) => Promise<ChannelCreateResponse>;
+  channel_create(params: ChannelCreateParams): Promise<ChannelCreateResponse>;
   /**
    * Update an existing channel claim.
    * 
-   * @param params Command args obj
+   * @see {ChannelUpdateParams}
+   * @param {ChannelUpdateParams} params Command args obj
    * @param {string} [params.claim_id] claim_id of the channel to update
    * @param {number} [params.bid] amount to back the claim
    * @param {string} [params.title] title of the publication
@@ -490,19 +1416,21 @@ eg. --height=">400000" would limit results to only claims above 400k block heigh
    * @param {boolean} [params.blocking] wait until transaction is in mempool
    * @param {boolean} [params.replace] instead of modifying specific values on the channel, this will clear all existing values and only save passed in values, useful for form submissions where all values are always set
    */
-  channel_update: (params: {claim_id:string,bid?:number,title?:string,description?:string,email?:string,website_url?:string,featured?:string[],clear_featured?:boolean,tags?:string[],clear_tags?:boolean,languages?:string[],clear_languages?:boolean,locations?:string[],clear_locations?:boolean,thumbnail_url?:string,cover_url?:string,account_id?:string,wallet_id?:string,funding_account_ids?:string[],claim_address?:string,new_signing_key?:boolean,preview?:boolean,blocking?:boolean,replace?:boolean}) => Promise<ChannelUpdateResponse>;
+  channel_update(params: ChannelUpdateParams): Promise<ChannelUpdateResponse>;
   /**
    * Import serialized channel private key (to allow signing new streams to the channel)
    * 
-   * @param params Command args obj
+   * @see {ChannelImportParams}
+   * @param {ChannelImportParams} params Command args obj
    * @param {string} [params.channel_data] serialized channel, as exported by channel export
    * @param {string} [params.wallet_id] import into specific wallet
    */
-  channel_import: (params: {channel_data:string,wallet_id?:string}) => Promise<string>;
+  channel_import(params: ChannelImportParams): Promise<string>;
   /**
    * List my channel claims.
    * 
-   * @param params Command args obj
+   * @see {ChannelListParams}
+   * @param {ChannelListParams} params Command args obj
    * @param {string[]} [params.name] channel name
    * @param {string[]} [params.claim_id] channel id
    * @param {boolean} [params.is_spent] shows previous channel updates and abandons
@@ -513,22 +1441,24 @@ eg. --height=">400000" would limit results to only claims above 400k block heigh
    * @param {boolean} [params.resolve] resolves each channel to provide additional metadata
    * @param {boolean} [params.no_totals] do not calculate the total number of pages and items in result set (significant performance boost)
    */
-  channel_list: (params: {name?:string[],claim_id?:string[],is_spent?:boolean,account_id?:string,wallet_id?:string,page?:number,page_size?:number,resolve?:boolean,no_totals?:boolean}) => Promise<ChannelListResponse>;
+  channel_list(params: ChannelListParams): Promise<ChannelListResponse>;
   /**
    * Signs data using the specified channel signing key.
    * 
-   * @param params Command args obj
+   * @see {ChannelSignParams}
+   * @param {ChannelSignParams} params Command args obj
    * @param {string} [params.channel_name] name of channel used to sign (or use channel id)
    * @param {string} [params.channel_id] claim id of channel used to sign (or use channel name)
    * @param {string} [params.hexdata] data to sign, encoded as hexadecimal
    * @param {string} [params.channel_account_id] one or more account ids for accounts to look in for channel certificates, defaults to all accounts.
    * @param {string} [params.wallet_id] restrict operation to specific wallet
    */
-  channel_sign: (params: {channel_name?:string,channel_id?:string,hexdata?:string,channel_account_id?:string,wallet_id?:string}) => Promise<ChannelSignResponse>;
+  channel_sign(params: ChannelSignParams): Promise<ChannelSignResponse>;
   /**
    * Abandon one of my stream claims.
    * 
-   * @param params Command args obj
+   * @see {StreamAbandonParams}
+   * @param {StreamAbandonParams} params Command args obj
    * @param {string} [params.claim_id] claim_id of the claim to abandon
    * @param {string} [params.txid] txid of the claim to abandon
    * @param {number} [params.nout] nout of the claim to abandon
@@ -537,11 +1467,12 @@ eg. --height=">400000" would limit results to only claims above 400k block heigh
    * @param {boolean} [params.preview] do not broadcast the transaction
    * @param {boolean} [params.blocking] wait until abandon is in mempool
    */
-  stream_abandon: (params: {claim_id?:string,txid?:string,nout?:number,account_id?:string,wallet_id?:string,preview?:boolean,blocking?:boolean}) => Promise<GenericTxResponse>;
+  stream_abandon(params: StreamAbandonParams): Promise<GenericTxResponse>;
   /**
    * List my stream claims.
    * 
-   * @param params Command args obj
+   * @see {StreamListParams}
+   * @param {StreamListParams} params Command args obj
    * @param {string[]} [params.name] stream name
    * @param {string[]} [params.claim_id] stream id
    * @param {boolean} [params.is_spent] shows previous stream updates and abandons
@@ -552,11 +1483,12 @@ eg. --height=">400000" would limit results to only claims above 400k block heigh
    * @param {boolean} [params.resolve] resolves each stream to provide additional metadata
    * @param {boolean} [params.no_totals] do not calculate the total number of pages and items in result set (significant performance boost)
    */
-  stream_list: (params: {name?:string[],claim_id?:string[],is_spent?:boolean,account_id?:string,wallet_id?:string,page?:number,page_size?:number,resolve?:boolean,no_totals?:boolean}) => Promise<StreamListResponse>;
+  stream_list(params: StreamListParams): Promise<StreamListResponse>;
   /**
    * Abandon one of my channel claims.
    * 
-   * @param params Command args obj
+   * @see {ChannelAbandonParams}
+   * @param {ChannelAbandonParams} params Command args obj
    * @param {string} [params.claim_id] claim_id of the claim to abandon
    * @param {string} [params.txid] txid of the claim to abandon
    * @param {number} [params.nout] nout of the claim to abandon
@@ -565,11 +1497,12 @@ eg. --height=">400000" would limit results to only claims above 400k block heigh
    * @param {boolean} [params.preview] do not broadcast the transaction
    * @param {boolean} [params.blocking] wait until abandon is in mempool
    */
-  channel_abandon: (params: {claim_id?:string,txid?:string,nout?:number,account_id?:string,wallet_id?:string,preview?:boolean,blocking?:boolean}) => Promise<GenericTxResponse>;
+  channel_abandon(params: ChannelAbandonParams): Promise<GenericTxResponse>;
   /**
    * Create a support or a tip for name claim.
    * 
-   * @param params Command args obj
+   * @see {SupportCreateParams}
+   * @param {SupportCreateParams} params Command args obj
    * @param {string} [params.claim_id] claim_id of the claim to support
    * @param {number} [params.amount] amount of support
    * @param {boolean} [params.tip] send support to claim owner, default: false.
@@ -582,11 +1515,12 @@ eg. --height=">400000" would limit results to only claims above 400k block heigh
    * @param {boolean} [params.preview] do not broadcast the transaction
    * @param {boolean} [params.blocking] wait until transaction is in mempool
    */
-  support_create: (params: {claim_id:string,amount:number,tip?:boolean,channel_id?:string,channel_name?:string,channel_account_id?:string,account_id?:string,wallet_id?:string,funding_account_ids?:string[],preview?:boolean,blocking?:boolean}) => Promise<GenericTxResponse>;
+  support_create(params: SupportCreateParams): Promise<GenericTxResponse>;
   /**
    * List staked supports and sent/received tips.
    * 
-   * @param params Command args obj
+   * @see {SupportListParams}
+   * @param {SupportListParams} params Command args obj
    * @param {string[]} [params.name] claim name
    * @param {string[]} [params.claim_id] claim id
    * @param {boolean} [params.received] only show received (tips)
@@ -599,12 +1533,13 @@ eg. --height=">400000" would limit results to only claims above 400k block heigh
    * @param {number} [params.page_size] number of items on page during pagination
    * @param {boolean} [params.no_totals] do not calculate the total number of pages and items in result set (significant performance boost)
    */
-  support_list: (params: {name?:string[],claim_id?:string[],received?:boolean,sent?:boolean,staked?:boolean,is_spent?:boolean,account_id?:string,wallet_id?:string,page?:number,page_size?:number,no_totals?:boolean}) => Promise<SupportListResponse>;
+  support_list(params: SupportListParams): Promise<SupportListResponse>;
   /**
    * Abandon supports, including tips, of a specific claim, optionally
 keeping some amount as supports.
    * 
-   * @param params Command args obj
+   * @see {SupportAbandonParams}
+   * @param {SupportAbandonParams} params Command args obj
    * @param {string} [params.claim_id] claim_id of the support to abandon
    * @param {string} [params.txid] txid of the claim to abandon
    * @param {number} [params.nout] nout of the claim to abandon
@@ -614,7 +1549,7 @@ keeping some amount as supports.
    * @param {boolean} [params.preview] do not broadcast the transaction
    * @param {boolean} [params.blocking] wait until abandon is in mempool
    */
-  support_abandon: (params: {claim_id?:string,txid?:string,nout?:number,keep?:number,account_id?:string,wallet_id?:string,preview?:boolean,blocking?:boolean}) => Promise<SupportAbandonResponse>;
+  support_abandon(params: SupportAbandonParams): Promise<SupportAbandonResponse>;
   stream_repost: (params: StreamRepostOptions) => Promise<StreamRepostResponse>;
   purchase_list: (params: PurchaseListOptions) => Promise<PurchaseListResponse>;
 
@@ -622,7 +1557,8 @@ keeping some amount as supports.
   /**
    * List files limited by optional filters
    * 
-   * @param params Command args obj
+   * @see {FileListParams}
+   * @param {FileListParams} params Command args obj
    * @param {string} [params.sd_hash] get file with matching sd hash
    * @param {string} [params.file_name] get file with matching file name in the downloads folder
    * @param {string} [params.stream_hash] get file with matching stream hash
@@ -648,11 +1584,12 @@ keeping some amount as supports.
    * @param {number} [params.page_size] number of items on page during pagination
    * @param {string} [params.wallet_id] add purchase receipts from this wallet
    */
-  file_list: (params: {sd_hash?:string,file_name?:string,stream_hash?:string,rowid?:number,added_on?:number,claim_id?:string,outpoint?:string,txid?:string,nout?:number,channel_claim_id?:string,channel_name?:string,claim_name?:string,blobs_in_stream?:number,download_path?:string,uploading_to_reflector?:boolean,is_fully_reflected?:boolean,status?:string,completed?:boolean,blobs_remaining?:number,sort?:string,comparison?:string,page?:number,page_size?:number,wallet_id?:string}) => Promise<FileListResponse>;
+  file_list(params: FileListParams): Promise<FileListResponse>;
   /**
    * Delete a LBRY file
    * 
-   * @param params Command args obj
+   * @see {FileDeleteParams}
+   * @param {FileDeleteParams} params Command args obj
    * @param {boolean} [params.delete_from_download_dir] delete file from download directory, instead of just deleting blobs
    * @param {boolean} [params.delete_all] if there are multiple matching files, allow the deletion of multiple files. Otherwise do not delete anything.
    * @param {string} [params.sd_hash] delete by file sd hash
@@ -666,30 +1603,33 @@ keeping some amount as supports.
    * @param {string} [params.channel_claim_id] delete by file channel claim id
    * @param {string} [params.channel_name] delete by file channel claim name
    */
-  file_delete: (params: {delete_from_download_dir?:boolean,delete_all?:boolean,sd_hash?:string,file_name?:string,stream_hash?:string,rowid?:number,claim_id?:string,txid?:string,nout?:number,claim_name?:string,channel_claim_id?:string,channel_name?:string}) => Promise<boolean>;
+  file_delete(params: FileDeleteParams): Promise<boolean>;
   //TODO: track down this method in api docs make sure the response type correct
   /**
    * Start or stop downloading a file
    * 
-   * @param params Command args obj
+   * @see {FileSetStatusParams}
+   * @param {FileSetStatusParams} params Command args obj
    * @param {string} [params.status] one of "start" or "stop"
    * @param {string} [params.sd_hash] set status of file with matching sd hash
    * @param {string} [params.file_name] set status of file with matching file name in the downloads folder
    * @param {string} [params.stream_hash] set status of file with matching stream hash
    * @param {number} [params.rowid] set status of file with matching row id
    */
-  file_set_status: (params: {status:string,sd_hash?:string,file_name?:string,stream_hash?:string,rowid?:number}) => Promise<string>; 
+  file_set_status(params: FileSetStatusParams): Promise<string>; 
   /**
    * Delete a blob
    * 
-   * @param params Command args obj
+   * @see {BlobDeleteParams}
+   * @param {BlobDeleteParams} params Command args obj
    * @param {string} [params.blob_hash] blob hash of the blob to delete
    */
-  blob_delete: (params: {blob_hash:string}) => Promise<string>;
+  blob_delete(params: BlobDeleteParams): Promise<string>;
   /**
    * Returns blob hashes. If not given filters, returns all blobs known by the blob manager
    * 
-   * @param params Command args obj
+   * @see {BlobListParams}
+   * @param {BlobListParams} params Command args obj
    * @param {boolean} [params.needed] only return needed blobs
    * @param {boolean} [params.finished] only return finished blobs
    * @param {string} [params.uri] filter blobs by stream in a uri
@@ -698,32 +1638,35 @@ keeping some amount as supports.
    * @param {number} [params.page] page to return during paginating
    * @param {number} [params.page_size] number of items on page during pagination
    */
-  blob_list: (params: {needed?:boolean,finished?:boolean,uri?:string,stream_hash?:string,sd_hash?:string,page?:number,page_size?:number}) => Promise<BlobListResponse>;
+  blob_list(params: BlobListParams): Promise<BlobListResponse>;
 
   // Preferences
   /**
    * Get preference value for key or all values if not key is passed in.
    * 
-   * @param params Command args obj
+   * @see {PreferenceGetParams}
+   * @param {PreferenceGetParams} params Command args obj
    * @param {string} [params.key] key associated with value
    * @param {string} [params.wallet_id] restrict operation to specific wallet
    */
-  preference_get: (params: {key?:string,wallet_id?:string}) => Promise<any>;
+  preference_get(params: PreferenceGetParams): Promise<any>;
   /**
    * Set preferences
    * 
-   * @param params Command args obj
+   * @see {PreferenceSetParams}
+   * @param {PreferenceSetParams} params Command args obj
    * @param {string} [params.key] key associated with value
    * @param {string} [params.value] key associated with value
    * @param {string} [params.wallet_id] restrict operation to specific wallet
    */
-  preference_set: (params: {key:string,value:string,wallet_id?:string}) => Promise<any>;
+  preference_set(params: PreferenceSetParams): Promise<any>;
 
   // Commenting
   /**
    * List comments associated with a claim.
    * 
-   * @param params Command args obj
+   * @see {CommentListParams}
+   * @param {CommentListParams} params Command args obj
    * @param {string} [params.claim_id] The claim on which the comment will be made on
    * @param {string} [params.parent_id] CommentId of a specific thread you'd like to see
    * @param {number} [params.page] The page you'd like to see in the comment list.
@@ -734,11 +1677,12 @@ keeping some amount as supports.
    * @param {boolean} [params.visible] Select only Visible Comments
    * @param {boolean} [params.hidden] Select only Hidden Comments
    */
-  comment_list: (params: {claim_id:string,parent_id?:string,page?:number,page_size?:number,skip_validation?:boolean,include_replies?:boolean,is_channel_signature_valid?:boolean,visible?:boolean,hidden?:boolean}) => Promise<CommentListResponse>;
+  comment_list(params: CommentListParams): Promise<CommentListResponse>;
   /**
    * Create and associate a comment with a claim using your channel identity.
    * 
-   * @param params Command args obj
+   * @see {CommentCreateParams}
+   * @param {CommentCreateParams} params Command args obj
    * @param {string} [params.comment] Comment to be made, should be at most 2000 characters.
    * @param {string} [params.claim_id] The ID of the claim to comment on
    * @param {string} [params.parent_id] The ID of a comment to make a response to
@@ -747,141 +1691,156 @@ keeping some amount as supports.
    * @param {string} [params.channel_account_id] one or more account ids for accounts to look in for channel certificates, defaults to all accounts
    * @param {string} [params.wallet_id] restrict operation to specific wallet
    */
-  comment_create: (params: {comment:string,claim_id:string,parent_id?:string,channel_id?:string,channel_name?:string,channel_account_id?:string,wallet_id?:string}) => Promise<CommentCreateResponse>;
+  comment_create(params: CommentCreateParams): Promise<CommentCreateResponse>;
   /**
    * Edit a comment published as one of your channels.
    * 
-   * @param params Command args obj
+   * @see {CommentUpdateParams}
+   * @param {CommentUpdateParams} params Command args obj
    * @param {string} [params.comment] New comment replacing the old one
    * @param {string} [params.comment_id] Hash identifying the comment to edit
    * @param {string} [params.wallet_id] restrict operation to specific wallet
    */
-  comment_update: (params: {comment:string,comment_id:string,wallet_id?:string}) => Promise<CommentUpdateResponse>;
+  comment_update(params: CommentUpdateParams): Promise<CommentUpdateResponse>;
   /**
    * Hide a comment published to a claim you control.
    * 
-   * @param params Command args obj
+   * @see {CommentHideParams}
+   * @param {CommentHideParams} params Command args obj
    * @param {string[]} [params.comment_ids] one or more comment_id to hide.
    * @param {string} [params.wallet_id] restrict operation to specific wallet
    */
-  comment_hide: (params: {comment_ids?:string[],wallet_id?:string}) => Promise<CommentHideResponse>;
+  comment_hide(params: CommentHideParams): Promise<CommentHideResponse>;
   /**
    * Abandon a comment published under your channel identity.
    * 
-   * @param params Command args obj
+   * @see {CommentAbandonParams}
+   * @param {CommentAbandonParams} params Command args obj
    * @param {string} [params.comment_id] The ID of the comment to be abandoned.
    * @param {string} [params.wallet_id] restrict operation to specific wallet
    */
-  comment_abandon: (params: {comment_id:string,wallet_id?:string}) => Promise<CommentAbandonResponse>;
+  comment_abandon(params: CommentAbandonParams): Promise<CommentAbandonResponse>;
 
   // Wallet utilities
   /**
    * Return the balance of a wallet
    * 
-   * @param params Command args obj
+   * @see {WalletBalanceParams}
+   * @param {WalletBalanceParams} params Command args obj
    * @param {string} [params.wallet_id] balance for specific wallet
    * @param {number} [params.confirmations] Only include transactions with this many confirmed blocks.
    */
-  wallet_balance: (params: {wallet_id?:string,confirmations?:number}) => Promise<BalanceResponse>;
+  wallet_balance(params: WalletBalanceParams): Promise<BalanceResponse>;
   /**
    * Decrypt an encrypted wallet, this will remove the wallet password. The wallet must be unlocked to decrypt it
    * 
-   * @param params Command args obj
+   * @see {WalletDecryptParams}
+   * @param {WalletDecryptParams} params Command args obj
    * @param {string} [params.wallet_id] restrict operation to specific wallet
    */
-  wallet_decrypt: (params: {wallet_id?:string}) => Promise<boolean>;
+  wallet_decrypt(params: WalletDecryptParams): Promise<boolean>;
   /**
    * Encrypt an unencrypted wallet with a password
    * 
-   * @param params Command args obj
+   * @see {WalletEncryptParams}
+   * @param {WalletEncryptParams} params Command args obj
    * @param {string} [params.new_password] password to encrypt account
    * @param {string} [params.wallet_id] restrict operation to specific wallet
    */
-  wallet_encrypt: (params: {new_password:string,wallet_id?:string}) => Promise<boolean>;
+  wallet_encrypt(params: WalletEncryptParams): Promise<boolean>;
   /**
    * Unlock an encrypted wallet
    * 
-   * @param params Command args obj
+   * @see {WalletUnlockParams}
+   * @param {WalletUnlockParams} params Command args obj
    * @param {string} [params.password] password to use for unlocking
    * @param {string} [params.wallet_id] restrict operation to specific wallet
    */
-  wallet_unlock: (params: {password:string,wallet_id?:string}) => Promise<boolean>;
+  wallet_unlock(params: WalletUnlockParams): Promise<boolean>;
   /**
    * List wallets.
    * 
-   * @param params Command args obj
+   * @see {WalletListParams}
+   * @param {WalletListParams} params Command args obj
    * @param {string} [params.wallet_id] show specific wallet only
    * @param {number} [params.page] page to return during paginating
    * @param {number} [params.page_size] number of items on page during pagination
    */
-  wallet_list: (params: {wallet_id?:string,page?:number,page_size?:number}) => Promise<WalletListResponse>;
+  wallet_list(params: WalletListParams): Promise<WalletListResponse>;
   /**
    * Send the same number of credits to multiple addresses using all accounts in wallet to
 fund the transaction and the default account to receive any change.
    * 
-   * @param params Command args obj
+   * @see {WalletSendParams}
+   * @param {WalletSendParams} params Command args obj
    * @param {string} [params.wallet_id] restrict operation to specific wallet
    * @param {string} [params.change_account_id] account where change will go
    * @param {string} [params.funding_account_ids] accounts to fund the transaction
    * @param {boolean} [params.preview] do not broadcast the transaction
    * @param {boolean} [params.blocking] wait until tx has synced
    */
-  wallet_send: (params: {wallet_id?:string,change_account_id?:string,funding_account_ids?:string,preview?:boolean,blocking?:boolean}) => Promise<GenericTxResponse>;
+  wallet_send(params: WalletSendParams): Promise<GenericTxResponse>;
   /**
    * Status of wallet including encryption/lock state.
    * 
-   * @param params Command args obj
+   * @see {WalletStatusParams}
+   * @param {WalletStatusParams} params Command args obj
    * @param {string} [params.wallet_id] status of specific wallet
    */
-  wallet_status: (params: {wallet_id?:string}) => Promise<WalletStatusResponse>;
+  wallet_status(params: WalletStatusParams): Promise<WalletStatusResponse>;
   /**
    * Checks if an address is associated with the current wallet.
    * 
-   * @param params Command args obj
+   * @see {AddressIsMineParams}
+   * @param {AddressIsMineParams} params Command args obj
    * @param {string} [params.address] address to check
    * @param {string} [params.account_id] id of the account to use
    * @param {string} [params.wallet_id] restrict operation to specific wallet
    */
-  address_is_mine: (params: {address:string,account_id?:string,wallet_id?:string}) => Promise<boolean>;
+  address_is_mine(params: AddressIsMineParams): Promise<boolean>;
   /**
    * Return an address containing no balance, will create
 a new address if there is none.
    * 
-   * @param params Command args obj
+   * @see {AddressUnusedParams}
+   * @param {AddressUnusedParams} params Command args obj
    * @param {string} [params.account_id] id of the account to use
    * @param {string} [params.wallet_id] restrict operation to specific wallet
    */
-  address_unused: (params: {account_id?:string,wallet_id?:string}) => Promise<string>; // New address
+  address_unused(params: AddressUnusedParams): Promise<string>; // New address
   /**
    * List account addresses or details of single address.
    * 
-   * @param params Command args obj
+   * @see {AddressListParams}
+   * @param {AddressListParams} params Command args obj
    * @param {string} [params.address] just show details for single address
    * @param {string} [params.account_id] id of the account to use
    * @param {string} [params.wallet_id] restrict operation to specific wallet
    * @param {number} [params.page] page to return during paginating
    * @param {number} [params.page_size] number of items on page during pagination
    */
-  address_list: (params: {address?:string,account_id?:string,wallet_id?:string,page?:number,page_size?:number}) => Promise<string>;
+  address_list(params: AddressListParams): Promise<string>;
   /**
    * List transactions belonging to wallet
    * 
-   * @param params Command args obj
+   * @see {TransactionListParams}
+   * @param {TransactionListParams} params Command args obj
    * @param {string} [params.account_id] id of the account to query
    * @param {string} [params.wallet_id] restrict results to specific wallet
    * @param {number} [params.page] page to return during paginating
    * @param {number} [params.page_size] number of items on page during pagination
    */
-  transaction_list: (params: {account_id?:string,wallet_id?:string,page?:number,page_size?:number}) => Promise<TxListResponse>;
+  transaction_list(params: TransactionListParams): Promise<TxListResponse>;
 
   // Sync
   /**
    * Deterministic hash of the wallet.
    * 
-   * @param params Command args obj
+   * @see {SyncHashParams}
+   * @param {SyncHashParams} params Command args obj
    * @param {string} [params.wallet_id] wallet for which to generate hash
    */
-  sync_hash: (params: {wallet_id?:string}) => Promise<string>;
+  sync_hash(params: SyncHashParams): Promise<string>;
   /**
    * Apply incoming synchronization data, if provided, and return a sync hash and update wallet data.
 
@@ -891,13 +1850,14 @@ If "encrypt-on-disk" preference is True and supplied password is different from 
 or there is no local password (because local wallet was not encrypted), then the supplied password
 will be used for local encryption (overwriting previous local encryption password).
    * 
-   * @param params Command args obj
+   * @see {SyncApplyParams}
+   * @param {SyncApplyParams} params Command args obj
    * @param {string} [params.password] password to decrypt incoming and encrypt outgoing data
    * @param {string} [params.data] incoming sync data, if any
    * @param {string} [params.wallet_id] wallet being sync'ed
    * @param {boolean} [params.blocking] wait until any new accounts have sync'ed
    */
-  sync_apply: (params: {password?:string,data?:string,wallet_id?:string,blocking?:boolean}) => Promise<SyncApplyResponse>;
+  sync_apply(params: SyncApplyParams): Promise<SyncApplyResponse>;
 
   // The app shouldn't need to do this
   utxo_release: () => Promise<any>;

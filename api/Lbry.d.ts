@@ -2,7 +2,10 @@ import { ChannelClaim, Claim, PurchaseReceipt, StreamClaim } from './Claim';
 import { Support, Transaction } from './Transaction'
 import { FileListItem } from './File'
 
-declare type StatusResponse = {
+type EqualityConstraints = '>' | '>=' | '<' | '<=';
+type EqualityConstraintsNumber = `${EqualityConstraints}${number}`
+
+export declare type StatusResponse = {
   blob_manager: {
     finished_blobs: number;
   };
@@ -58,7 +61,7 @@ declare type StatusResponse = {
   } | null | undefined;
 };
 
-declare type VersionResponse = {
+export declare type VersionResponse = {
   build: string;
   lbrynet_version: string;
   os_release: string;
@@ -68,7 +71,7 @@ declare type VersionResponse = {
   python_version: string;
 };
 
-declare type BalanceResponse = {
+export declare type BalanceResponse = {
   available: string;
   reserved: string;
   reserved_subtotals: {
@@ -79,14 +82,14 @@ declare type BalanceResponse = {
   total: string;
 };
 
-declare type ResolveResponse = {
+export declare type ResolveResponse = {
   // Keys are the url(s) passed to resolve
   [key: string]: { error?: {}; stream?: StreamClaim; channel?: ChannelClaim; claimsInChannel?: number; };
 };
 
-declare type GetResponse = FileListItem & { error?: string; };
+export declare type GetResponse = FileListItem & { error?: string; };
 
-declare type GenericTxResponse = {
+export declare type GenericTxResponse = {
   height: number;
   hex: string;
   inputs: Array<{}>;
@@ -97,13 +100,13 @@ declare type GenericTxResponse = {
   txid: string;
 };
 
-declare type PublishResponse = GenericTxResponse & {
+export declare type PublishResponse = GenericTxResponse & {
   // Only first value in outputs is a claim
   // That's the only value we care about
   outputs: Array<Claim>;
 };
 
-declare type ClaimSearchResponse = {
+export declare type ClaimSearchResponse = {
   items: Array<Claim>;
   page: number;
   page_size: number;
@@ -111,7 +114,7 @@ declare type ClaimSearchResponse = {
   total_pages: number;
 };
 
-declare type ClaimListResponse = {
+export declare type ClaimListResponse = {
   items: Array<ChannelClaim | Claim>;
   page: number;
   page_size: number;
@@ -119,18 +122,18 @@ declare type ClaimListResponse = {
   total_pages: number;
 };
 
-declare type ChannelCreateResponse = GenericTxResponse & {
+export declare type ChannelCreateResponse = GenericTxResponse & {
   outputs: Array<ChannelClaim>;
 };
 
-declare type ChannelUpdateResponse = GenericTxResponse & {
+export declare type ChannelUpdateResponse = GenericTxResponse & {
   outputs: Array<ChannelClaim>;
 };
 
-declare type CommentCreateResponse = Comment;
-declare type CommentUpdateResponse = Comment;
+export declare type CommentCreateResponse = Comment;
+export declare type CommentUpdateResponse = Comment;
 
-declare type CommentListResponse = {
+export declare type CommentListResponse = {
   items: Array<Comment>;
   page: number;
   page_size: number;
@@ -138,12 +141,12 @@ declare type CommentListResponse = {
   total_pages: number;
 };
 
-declare type MyReactions = {
+export declare type MyReactions = {
   // Keys are the commentId
   [key: string]: Array<string>;
 };
 
-declare type OthersReactions = {
+export declare type OthersReactions = {
   // Keys are the commentId
   [key: string]: {
     // Keys are the reaction_type, e.g. 'like'
@@ -151,27 +154,27 @@ declare type OthersReactions = {
   };
 };
 
-declare type CommentReactListResponse = {
+export declare type CommentReactListResponse = {
   my_reactions: Array<MyReactions>;
   others_reactions: Array<OthersReactions>;
 };
 
-declare type CommentHideResponse = {
+export declare type CommentHideResponse = {
   // keyed by the CommentIds entered
   [key: string]: { hidden: boolean; };
 };
 
-declare type CommentPinResponse = {
+export declare type CommentPinResponse = {
   // keyed by the CommentIds entered
   items: Comment;
 };
 
-declare type CommentAbandonResponse = {
+export declare type CommentAbandonResponse = {
   // keyed by the CommentId given
   abandoned: boolean;
 };
 
-declare type ChannelListResponse = {
+export declare type ChannelListResponse = {
   items: Array<ChannelClaim>;
   page: number;
   page_size: number;
@@ -179,12 +182,12 @@ declare type ChannelListResponse = {
   total_pages: number;
 };
 
-declare type ChannelSignResponse = {
+export declare type ChannelSignResponse = {
   signature: string;
   signing_ts: string;
 };
 
-declare type FileListResponse = {
+export declare type FileListResponse = {
   items: Array<FileListItem>;
   page: number;
   page_size: number;
@@ -192,7 +195,7 @@ declare type FileListResponse = {
   total_pages: number;
 };
 
-declare type TxListResponse = {
+export declare type TxListResponse = {
   items: Array<Transaction>;
   page: number;
   page_size: number;
@@ -200,7 +203,7 @@ declare type TxListResponse = {
   total_pages: number;
 };
 
-declare type SupportListResponse = {
+export declare type SupportListResponse = {
   items: Array<Support>;
   page: number;
   page_size: number;
@@ -208,27 +211,27 @@ declare type SupportListResponse = {
   total_pages: number;
 };
 
-declare type BlobListResponse = { items: Array<string>; };
+export declare type BlobListResponse = { items: Array<string>; };
 
-declare type WalletListResponse = Array<{
+export declare type WalletListResponse = Array<{
   id: string;
   name: string;
 }>;
 
-declare type WalletStatusResponse = {
+export declare type WalletStatusResponse = {
   is_encrypted: boolean;
   is_locked: boolean;
   is_syncing: boolean;
 };
 
-declare type SyncApplyResponse = {
+export declare type SyncApplyResponse = {
   hash: string;
   data: string;
 };
 
-declare type SupportAbandonResponse = GenericTxResponse;
+export declare type SupportAbandonResponse = GenericTxResponse;
 
-declare type StreamListResponse = {
+export declare type StreamListResponse = {
   items: Array<StreamClaim>;
   page: number;
   page_size: number;
@@ -236,16 +239,16 @@ declare type StreamListResponse = {
   total_pages: number;
 };
 
-declare type StreamRepostOptions = {
+export declare type StreamRepostOptions = {
   name: string;
   bid: string;
   claim_id: string;
   channel_id?: string;
 };
 
-declare type StreamRepostResponse = GenericTxResponse;
+export declare type StreamRepostResponse = GenericTxResponse;
 
-declare type PurchaseListResponse = {
+export declare type PurchaseListResponse = {
   items: Array<PurchaseReceipt & { claim: StreamClaim; }>;
   page: number;
   page_size: number;
@@ -253,7 +256,7 @@ declare type PurchaseListResponse = {
   total_pages: number;
 };
 
-declare type PurchaseListOptions = {
+export declare type PurchaseListOptions = {
   page: number;
   page_size: number;
   resolve: boolean;

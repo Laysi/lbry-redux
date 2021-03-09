@@ -11,6 +11,7 @@ export * as DAEMON_SETTINGS from './constants/daemon_settings';// exports.DAEMON
 export { DEFAULT_FOLLOWED_TAGS } from './constants/tags';// exports.DEFAULT_FOLLOWED_TAGS = DEFAULT_FOLLOWED_TAGS;
 export { DEFAULT_KNOWN_TAGS } from './constants/tags';// exports.DEFAULT_KNOWN_TAGS = DEFAULT_KNOWN_TAGS;
 export * as LICENSES from './constants/licenses';// exports.LICENSES = licenses;
+export * from  './Lbry';
 export const Lbry: LbryTypes;// exports.Lbry = lbryProxy;
 export const LbryFirst: LbryFirstTypes;// exports.LbryFirst = lbryFirstProxy;
 export { MATURE_TAGS } from './constants/tags';// exports.MATURE_TAGS = MATURE_TAGS;

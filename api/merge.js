@@ -47,7 +47,8 @@ function typeTranslate(args) {
         name: a.name.replace(/<\w+>/, ''),
         required: a.is_required,
         type: typeMapping(a.type),
-        description:a.description
+        description:a.description,
+        supportsEqualityConstraints: a.description.indexOf('(supports equality constraints)')  > 0
     }));
 
 }
@@ -57,32 +58,72 @@ function generateType(args) {
     return `{${typeList.join(',')}}`;
 
 }
-/**
- * 
- * 
- * 
- */
 
+let lbryTypeDts = [];
+let lbryParamsTypeDts = [];
+let inLbryTypeContent = false;
 for (let line of sourceDTS) {
-    if (regexTarget.test(line)) {
-        let [_, command, responseType,tailStuff] = line.match(regexTarget)
-        let apiData = getApiCommand(command);
-        if (apiData !== undefined) {
-            dstDTS.push(`  /**`);
-            dstDTS.push(`   * ${apiData.description}`);
-            dstDTS.push(`   * `);
-            dstDTS.push(`   * @param params Command args obj`);
-            for (let arg of typeTranslate(apiData.arguments)) {
-                dstDTS.push(`   * @param {${arg.type}} ${arg.require?'':'['}params.${arg.name}${arg.require?'':']'} ${arg.description}`);
+    if(!inLbryTypeContent && line == 'export declare type LbryTypes = {'){
+        inLbryTypeContent = true;
+    }
+    
+    if(!inLbryTypeContent && lbryTypeDts.length >0){
+        dstDTS = [...dstDTS,...lbryParamsTypeDts,...lbryTypeDts]
+        lbryTypeDts = [];
+        lbryParamsTypeDts = [];
+    }
+
+    if (inLbryTypeContent) {
+        if(regexTarget.test(line)){
+            let [_, command, responseType,tailStuff] = line.match(regexTarget)
+            let apiData = getApiCommand(command);
+            let paramsTypeName = apiData.name.split('_').map(s=>s.charAt(0).toUpperCase() + s.slice(1)).join('')+'Params';
+    
+    
+            if (apiData !== undefined) {
+                // lbryParamsTypeDts.push(`/**`);
+                // for (let arg of typeTranslate(apiData.arguments)) {
+                //     lbryParamsTypeDts.push(`   * @property  {${arg.type}} ${arg.require?'':'['}${arg.name}${arg.require?'':']'} ${arg.description}`);
+                // }
+                // lbryParamsTypeDts.push(` */`);
+                lbryParamsTypeDts.push(`/**`);
+                lbryParamsTypeDts.push(` * the params object of api command {${apiData.name}}`);
+                lbryParamsTypeDts.push(` * @see LbryTypes.${apiData.name}()`);
+                lbryParamsTypeDts.push(` */`);
+                lbryParamsTypeDts.push(`export interface ${paramsTypeName} {`);
+                for(let arg of  typeTranslate(apiData.arguments)){
+                    lbryParamsTypeDts.push(`  /** ${arg.description} */`);
+                    // lbryParamsTypeDts.push(`   * ${arg.description}`);
+                    // lbryParamsTypeDts.push(`   */`);
+                    lbryParamsTypeDts.push(`  ${arg.name}${arg.required ? '' : '?'}:${arg.type} ${arg.supportsEqualityConstraints ? '| EqualityConstraintsNumber':''}`);
+                }
+                lbryParamsTypeDts.push(`}`);
+
+
+                lbryTypeDts.push(`  /**`);
+                lbryTypeDts.push(`   * ${apiData.description}`);
+                lbryTypeDts.push(`   * `);
+                lbryTypeDts.push(`   * @see {${paramsTypeName}}`);
+                lbryTypeDts.push(`   * @param {${paramsTypeName}} params Command args obj`);
+                for (let arg of typeTranslate(apiData.arguments)) {
+                    lbryTypeDts.push(`   * @param {${arg.type}} ${arg.require?'':'['}params.${arg.name}${arg.require?'':']'} ${arg.description}`);
+                }
+                lbryTypeDts.push(`   */`);
+                lbryTypeDts.push(`  ${command}(params: ${paramsTypeName}): Promise<${responseType}>;${tailStuff}`);
+            } else {
+                lbryTypeDts.push(line);
             }
-            dstDTS.push(`   */`);
-            dstDTS.push(`  ${command}: (params: ${generateType(apiData.arguments)}) => Promise<${responseType}>;${tailStuff}`);
-        } else {
-            dstDTS.push(line);
+        }else{
+            lbryTypeDts.push(line);
+
         }
+        
 
     } else {
         dstDTS.push(line);
+    }
+    if(line == '};' && inLbryTypeContent){
+        inLbryTypeContent = false;
     }
     // console.log(line)
 }
