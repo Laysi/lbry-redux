@@ -95,7 +95,7 @@ for (let line of sourceDTS) {
                     lbryParamsTypeDts.push(`  /** ${arg.description} */`);
                     // lbryParamsTypeDts.push(`   * ${arg.description}`);
                     // lbryParamsTypeDts.push(`   */`);
-                    lbryParamsTypeDts.push(`  ${arg.name}${arg.required ? '' : '?'}:${arg.type} ${arg.supportsEqualityConstraints ? '| EqualityConstraintsNumber':''}`);
+                    lbryParamsTypeDts.push(`  ${arg.name}${arg.required ? '' : '?'}: ${arg.type} ${arg.supportsEqualityConstraints ? '| EqualityConstraintsNumber':''}`);
                 }
                 lbryParamsTypeDts.push(`}`);
 

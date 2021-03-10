@@ -273,21 +273,21 @@ export declare type PurchaseListOptions = {
  */
 export interface ResolveParams {
   /** one or more urls to resolve */
-  urls?:string[] 
+  urls?: string[] 
   /** wallet to check for claim purchase receipts */
-  wallet_id?:string 
+  wallet_id?: string 
   /** URL of the new SDK server (EXPERIMENTAL) */
-  new_sdk_server?:string 
+  new_sdk_server?: string 
   /** lookup and include a receipt if this wallet has purchased the claim being resolved */
-  include_purchase_receipt?:boolean 
+  include_purchase_receipt?: boolean 
   /** lookup and include a boolean indicating if claim being resolved is yours */
-  include_is_my_output?:boolean 
+  include_is_my_output?: boolean 
   /** lookup and sum the total amount of supports you've made to this claim */
-  include_sent_supports?:boolean 
+  include_sent_supports?: boolean 
   /** lookup and sum the total amount of tips you've made to this claim (only makes sense when claim is not yours) */
-  include_sent_tips?:boolean 
+  include_sent_tips?: boolean 
   /** lookup and sum the total amount of tips you've received to this claim (only makes sense when claim is yours) */
-  include_received_tips?:boolean 
+  include_received_tips?: boolean 
 }
 /**
  * the params object of api command {get}
@@ -295,17 +295,17 @@ export interface ResolveParams {
  */
 export interface GetParams {
   /** uri of the content to download */
-  uri?:string 
+  uri?: string 
   /** specified name for the downloaded file, overrides the stream file name */
-  file_name?:string 
+  file_name?: string 
   /** full path to the directory to download into */
-  download_directory?:string 
+  download_directory?: string 
   /** download timeout in number of seconds */
-  timeout?:number 
+  timeout?: number 
   /** save the file to the downloads directory */
-  save_file?:boolean 
+  save_file?: boolean 
   /** wallet to check for claim purchase receipts */
-  wallet_id?:string 
+  wallet_id?: string 
 }
 /**
  * the params object of api command {publish}
@@ -313,65 +313,65 @@ export interface GetParams {
  */
 export interface PublishParams {
   /** name of the content (can only consist of a-z A-Z 0-9 and -(dash)) */
-  name:string 
+  name: string 
   /** amount to back the claim */
-  bid?:number 
+  bid?: number 
   /** path to file to be associated with name. */
-  file_path?:string 
+  file_path?: string 
   /** validate that the video container and encodings match common web browser support or that optimization succeeds if specified. FFmpeg is required */
-  validate_file?:boolean 
+  validate_file?: boolean 
   /** transcode the video & audio if necessary to ensure common web browser support. FFmpeg is required */
-  optimize_file?:boolean 
+  optimize_file?: boolean 
   /** specify fee currency */
-  fee_currency?:string 
+  fee_currency?: string 
   /** content download fee */
-  fee_amount?:number 
+  fee_amount?: number 
   /** address where to send fee payments, will use value from --claim_address if not provided */
-  fee_address?:string 
+  fee_address?: string 
   /** title of the publication */
-  title?:string 
+  title?: string 
   /** description of the publication */
-  description?:string 
+  description?: string 
   /** author of the publication. The usage for this field is not the same as for channels. The author field is used to credit an author who is not the publisher and is not represented by the channel. For example, a pdf file of 'The Odyssey' has an author of 'Homer' but may by published to a channel such as '@classics', or to no channel at all */
-  author?:string 
+  author?: string 
   /** add content tags */
-  tags?:string[] 
+  tags?: string[] 
   /** languages used by the channel, using RFC 5646 format, eg: for English `--languages=en` for Spanish (Spain) `--languages=es-ES` for Spanish (Mexican) `--languages=es-MX` for Chinese (Simplified) `--languages=zh-Hans` for Chinese (Traditional) `--languages=zh-Hant` */
-  languages?:string[] 
+  languages?: string[] 
   /** locations relevant to the stream, consisting of 2 letter `country` code and a `state`, `city` and a postal `code` along with a `latitude` and `longitude`. for JSON RPC: pass a dictionary with aforementioned attributes as keys, eg: ... "locations": [{'country': 'US', 'state': 'NH'}] ... for command line: pass a colon delimited list with values in the following order: "COUNTRY:STATE:CITY:CODE:LATITUDE:LONGITUDE" making sure to include colon for blank values, for example to provide only the city: ... --locations="::Manchester" with all values set: ... --locations="US:NH:Manchester:03101:42.990605:-71.460989" optionally, you can just pass the "LATITUDE:LONGITUDE": ... --locations="42.990605:-71.460989" finally, you can also pass JSON string of dictionary on the command line as you would via JSON RPC ... --locations="{'country': 'US', 'state': 'NH'}" */
-  locations?:string[] 
+  locations?: string[] 
   /** publication license */
-  license?:string 
+  license?: string 
   /** publication license url */
-  license_url?:string 
+  license_url?: string 
   /** thumbnail url */
-  thumbnail_url?:string 
+  thumbnail_url?: string 
   /** original public release of content, seconds since UNIX epoch */
-  release_time?:number 
+  release_time?: number 
   /** image/video width, automatically calculated from media file */
-  width?:number 
+  width?: number 
   /** image/video height, automatically calculated from media file */
-  height?:number 
+  height?: number 
   /** audio/video duration in seconds, automatically calculated */
-  duration?:number 
+  duration?: number 
   /** claim id of the publisher channel */
-  channel_id?:string 
+  channel_id?: string 
   /** name of publisher channel */
-  channel_name?:string 
+  channel_name?: string 
   /** one or more account ids for accounts to look in for channel certificates, defaults to all accounts. */
-  channel_account_id?:string 
+  channel_account_id?: string 
   /** account to use for holding the transaction */
-  account_id?:string 
+  account_id?: string 
   /** restrict operation to specific wallet */
-  wallet_id?:string 
+  wallet_id?: string 
   /** ids of accounts to fund this transaction */
-  funding_account_ids?:string[] 
+  funding_account_ids?: string[] 
   /** address where the claim is sent to, if not specified it will be determined automatically from the account */
-  claim_address?:string 
+  claim_address?: string 
   /** do not broadcast the transaction */
-  preview?:boolean 
+  preview?: boolean 
   /** wait until transaction is in mempool */
-  blocking?:boolean 
+  blocking?: boolean 
 }
 /**
  * the params object of api command {claim_search}
@@ -379,113 +379,113 @@ export interface PublishParams {
  */
 export interface ClaimSearchParams {
   /** claim name (normalized) */
-  name?:string 
+  name?: string 
   /** full text search */
-  text?:string 
+  text?: string 
   /** full or partial claim id */
-  claim_id?:string 
+  claim_id?: string 
   /** list of full claim ids */
-  claim_ids?:string[] 
+  claim_ids?: string[] 
   /** transaction id */
-  txid?:string 
+  txid?: string 
   /** position in the transaction */
-  nout?:string 
+  nout?: string 
   /** claims signed by this channel (argument is a URL which automatically gets resolved), see --channel_ids if you need to filter by multiple channels at the same time, includes claims with invalid signatures, use in conjunction with --valid_channel_signature */
-  channel?:string 
+  channel?: string 
   /** claims signed by any of these channels (arguments must be claim ids of the channels), includes claims with invalid signatures, implies --has_channel_signature, use in conjunction with --valid_channel_signature */
-  channel_ids?:string[] 
+  channel_ids?: string[] 
   /** exclude claims signed by any of these channels (arguments must be claim ids of the channels) */
-  not_channel_ids?:string[] 
+  not_channel_ids?: string[] 
   /** claims with a channel signature (valid or invalid) */
-  has_channel_signature?:boolean 
+  has_channel_signature?: boolean 
   /** claims with a valid channel signature or no signature, use in conjunction with --has_channel_signature to only get claims with valid signatures */
-  valid_channel_signature?:boolean 
+  valid_channel_signature?: boolean 
   /** claims with invalid channel signature or no signature, use in conjunction with --has_channel_signature to only get claims with invalid signatures */
-  invalid_channel_signature?:boolean 
+  invalid_channel_signature?: boolean 
   /** only return up to the specified number of claims per channel */
-  limit_claims_per_channel?:number 
+  limit_claims_per_channel?: number 
   /** winning claims of their respective name */
-  is_controlling?:boolean 
+  is_controlling?: boolean 
   /** only return channels having this public key id, this is the same key as used in the wallet file to map channel certificate private keys: {'public_key_id': 'private key'} */
-  public_key_id?:string 
+  public_key_id?: string 
   /** last updated block height (supports equality constraints) */
-  height?:number | EqualityConstraintsNumber
+  height?: number | EqualityConstraintsNumber
   /** last updated timestamp (supports equality constraints) */
-  timestamp?:number | EqualityConstraintsNumber
+  timestamp?: number | EqualityConstraintsNumber
   /** created at block height (supports equality constraints) */
-  creation_height?:number | EqualityConstraintsNumber
+  creation_height?: number | EqualityConstraintsNumber
   /** created at timestamp (supports equality constraints) */
-  creation_timestamp?:number | EqualityConstraintsNumber
+  creation_timestamp?: number | EqualityConstraintsNumber
   /** height at which claim starts competing for name (supports equality constraints) */
-  activation_height?:number | EqualityConstraintsNumber
+  activation_height?: number | EqualityConstraintsNumber
   /** height at which claim will expire (supports equality constraints) */
-  expiration_height?:number | EqualityConstraintsNumber
+  expiration_height?: number | EqualityConstraintsNumber
   /** limit to claims self-described as having been released to the public on or after this UTC timestamp, when claim does not provide a release time the publish time is used instead (supports equality constraints) */
-  release_time?:number | EqualityConstraintsNumber
+  release_time?: number | EqualityConstraintsNumber
   /** limit by claim value (supports equality constraints) */
-  amount?:number | EqualityConstraintsNumber
+  amount?: number | EqualityConstraintsNumber
   /** limit by supports and tips received (supports equality constraints) */
-  support_amount?:number | EqualityConstraintsNumber
+  support_amount?: number | EqualityConstraintsNumber
   /** limit by total value (initial claim value plus all tips and supports received), this amount is blank until claim has reached activation height (supports equality constraints) */
-  effective_amount?:number | EqualityConstraintsNumber
+  effective_amount?: number | EqualityConstraintsNumber
   /** group numbers 1 through 4 representing the trending groups of the content: 4 means content is trending globally and independently, 3 means content is not trending globally but is trending independently (locally), 2 means it is trending globally but not independently and 1 means it's not trending globally or locally (supports equality constraints) */
-  trending_group?:number | EqualityConstraintsNumber
+  trending_group?: number | EqualityConstraintsNumber
   /** trending amount taken from the global or local value depending on the trending group: 4 - global value, 3 - local value, 2 - global value, 1 - local value (supports equality constraints) */
-  trending_mixed?:number | EqualityConstraintsNumber
+  trending_mixed?: number | EqualityConstraintsNumber
   /** trending value calculated relative only to the individual contents past history (supports equality constraints) */
-  trending_local?:number | EqualityConstraintsNumber
+  trending_local?: number | EqualityConstraintsNumber
   /** trending value calculated relative to all trending content globally (supports equality constraints) */
-  trending_global?:number | EqualityConstraintsNumber
+  trending_global?: number | EqualityConstraintsNumber
   /** all reposts of the specified original claim id */
-  reposted_claim_id?:string 
+  reposted_claim_id?: string 
   /** claims reposted this many times (supports equality constraints) */
-  reposted?:number | EqualityConstraintsNumber
+  reposted?: number | EqualityConstraintsNumber
   /** filter by 'channel', 'stream' or 'unknown' */
-  claim_type?:string 
+  claim_type?: string 
   /** filter by 'video', 'image', 'document', etc */
-  stream_types?:string[] 
+  stream_types?: string[] 
   /** filter by 'video/mp4', 'image/png', etc */
-  media_types?:string[] 
+  media_types?: string[] 
   /** specify fee currency: LBC, BTC, USD */
-  fee_currency?:string 
+  fee_currency?: string 
   /** content download fee (supports equality constraints) */
-  fee_amount?:number | EqualityConstraintsNumber
+  fee_amount?: number | EqualityConstraintsNumber
   /** duration of video or audio in seconds (supports equality constraints) */
-  duration?:number | EqualityConstraintsNumber
+  duration?: number | EqualityConstraintsNumber
   /** find claims containing any of the tags */
-  any_tags?:string[] 
+  any_tags?: string[] 
   /** find claims containing every tag */
-  all_tags?:string[] 
+  all_tags?: string[] 
   /** find claims not containing any of these tags */
-  not_tags?:string[] 
+  not_tags?: string[] 
   /** find claims containing any of the languages */
-  any_languages?:string[] 
+  any_languages?: string[] 
   /** find claims containing every language */
-  all_languages?:string[] 
+  all_languages?: string[] 
   /** find claims not containing any of these languages */
-  not_languages?:string[] 
+  not_languages?: string[] 
   /** find claims containing any of the locations */
-  any_locations?:string[] 
+  any_locations?: string[] 
   /** find claims containing every location */
-  all_locations?:string[] 
+  all_locations?: string[] 
   /** find claims not containing any of these locations */
-  not_locations?:string[] 
+  not_locations?: string[] 
   /** page to return during paginating */
-  page?:number 
+  page?: number 
   /** number of items on page during pagination */
-  page_size?:number 
+  page_size?: number 
   /** field to order by, default is descending order, to do an ascending order prepend ^ to the field name, eg. '^amount' available fields: 'name', 'height', 'release_time', 'publish_time', 'amount', 'effective_amount', 'support_amount', 'trending_group', 'trending_mixed', 'trending_local', 'trending_global', 'activation_height' */
-  order_by?:string[] 
+  order_by?: string[] 
   /** do not calculate the total number of pages and items in result set (significant performance boost) */
-  no_totals?:boolean 
+  no_totals?: boolean 
   /** wallet to check for claim purchase receipts */
-  wallet_id?:string 
+  wallet_id?: string 
   /** lookup and include a receipt if this wallet has purchased the claim */
-  include_purchase_receipt?:boolean 
+  include_purchase_receipt?: boolean 
   /** lookup and include a boolean indicating if claim being resolved is yours */
-  include_is_my_output?:boolean 
+  include_is_my_output?: boolean 
   /** URL of the new SDK server (EXPERIMENTAL) */
-  new_sdk_server?:string 
+  new_sdk_server?: string 
 }
 /**
  * the params object of api command {claim_list}
@@ -493,31 +493,31 @@ export interface ClaimSearchParams {
  */
 export interface ClaimListParams {
   /** claim type: channel, stream, repost, collection */
-  claim_type?:string[] 
+  claim_type?: string[] 
   /** claim id */
-  claim_id?:string[] 
+  claim_id?: string[] 
   /** streams in this channel */
-  channel_id?:string[] 
+  channel_id?: string[] 
   /** claim name */
-  name?:string[] 
+  name?: string[] 
   /** shows previous claim updates and abandons */
-  is_spent?:boolean 
+  is_spent?: boolean 
   /** id of the account to query */
-  account_id?:string 
+  account_id?: string 
   /** restrict results to specific wallet */
-  wallet_id?:string 
+  wallet_id?: string 
   /** page to return during paginating */
-  page?:number 
+  page?: number 
   /** number of items on page during pagination */
-  page_size?:number 
+  page_size?: number 
   /** resolves each claim to provide additional metadata */
-  resolve?:boolean 
+  resolve?: boolean 
   /** field to order by: 'name', 'height', 'amount' */
-  order_by?:string 
+  order_by?: string 
   /** do not calculate the total number of pages and items in result set (significant performance boost) */
-  no_totals?:boolean 
+  no_totals?: boolean 
   /** calculate the amount of tips received for claim outputs */
-  include_received_tips?:boolean 
+  include_received_tips?: boolean 
 }
 /**
  * the params object of api command {channel_create}
@@ -525,43 +525,43 @@ export interface ClaimListParams {
  */
 export interface ChannelCreateParams {
   /** name of the channel prefixed with '@' */
-  name:string 
+  name: string 
   /** amount to back the claim */
-  bid:number 
+  bid: number 
   /** create new channel even if one already exists with given name. default: false. */
-  allow_duplicate_name?:boolean 
+  allow_duplicate_name?: boolean 
   /** title of the publication */
-  title?:string 
+  title?: string 
   /** description of the publication */
-  description?:string 
+  description?: string 
   /** email of channel owner */
-  email?:string 
+  email?: string 
   /** website url */
-  website_url?:string 
+  website_url?: string 
   /** claim_ids of featured content in channel */
-  featured?:string[] 
+  featured?: string[] 
   /** content tags */
-  tags?:string[] 
+  tags?: string[] 
   /** languages used by the channel, using RFC 5646 format, eg: for English `--languages=en` for Spanish (Spain) `--languages=es-ES` for Spanish (Mexican) `--languages=es-MX` for Chinese (Simplified) `--languages=zh-Hans` for Chinese (Traditional) `--languages=zh-Hant` */
-  languages?:string[] 
+  languages?: string[] 
   /** locations of the channel, consisting of 2 letter `country` code and a `state`, `city` and a postal `code` along with a `latitude` and `longitude`. for JSON RPC: pass a dictionary with aforementioned attributes as keys, eg: ... "locations": [{'country': 'US', 'state': 'NH'}] ... for command line: pass a colon delimited list with values in the following order: "COUNTRY:STATE:CITY:CODE:LATITUDE:LONGITUDE" making sure to include colon for blank values, for example to provide only the city: ... --locations="::Manchester" with all values set: ... --locations="US:NH:Manchester:03101:42.990605:-71.460989" optionally, you can just pass the "LATITUDE:LONGITUDE": ... --locations="42.990605:-71.460989" finally, you can also pass JSON string of dictionary on the command line as you would via JSON RPC ... --locations="{'country': 'US', 'state': 'NH'}" */
-  locations?:string[] 
+  locations?: string[] 
   /** thumbnail url */
-  thumbnail_url?:string 
+  thumbnail_url?: string 
   /** url of cover image */
-  cover_url?:string 
+  cover_url?: string 
   /** account to use for holding the transaction */
-  account_id?:string 
+  account_id?: string 
   /** restrict operation to specific wallet */
-  wallet_id?:string 
+  wallet_id?: string 
   /** ids of accounts to fund this transaction */
-  funding_account_ids?:string[] 
+  funding_account_ids?: string[] 
   /** address where the channel is sent to, if not specified it will be determined automatically from the account */
-  claim_address?:string 
+  claim_address?: string 
   /** do not broadcast the transaction */
-  preview?:boolean 
+  preview?: boolean 
   /** wait until transaction is in mempool */
-  blocking?:boolean 
+  blocking?: boolean 
 }
 /**
  * the params object of api command {channel_update}
@@ -569,53 +569,53 @@ export interface ChannelCreateParams {
  */
 export interface ChannelUpdateParams {
   /** claim_id of the channel to update */
-  claim_id:string 
+  claim_id: string 
   /** amount to back the claim */
-  bid?:number 
+  bid?: number 
   /** title of the publication */
-  title?:string 
+  title?: string 
   /** description of the publication */
-  description?:string 
+  description?: string 
   /** email of channel owner */
-  email?:string 
+  email?: string 
   /** website url */
-  website_url?:string 
+  website_url?: string 
   /** claim_ids of featured content in channel */
-  featured?:string[] 
+  featured?: string[] 
   /** clear existing featured content (prior to adding new ones) */
-  clear_featured?:boolean 
+  clear_featured?: boolean 
   /** add content tags */
-  tags?:string[] 
+  tags?: string[] 
   /** clear existing tags (prior to adding new ones) */
-  clear_tags?:boolean 
+  clear_tags?: boolean 
   /** languages used by the channel, using RFC 5646 format, eg: for English `--languages=en` for Spanish (Spain) `--languages=es-ES` for Spanish (Mexican) `--languages=es-MX` for Chinese (Simplified) `--languages=zh-Hans` for Chinese (Traditional) `--languages=zh-Hant` */
-  languages?:string[] 
+  languages?: string[] 
   /** clear existing languages (prior to adding new ones) */
-  clear_languages?:boolean 
+  clear_languages?: boolean 
   /** locations of the channel, consisting of 2 letter `country` code and a `state`, `city` and a postal `code` along with a `latitude` and `longitude`. for JSON RPC: pass a dictionary with aforementioned attributes as keys, eg: ... "locations": [{'country': 'US', 'state': 'NH'}] ... for command line: pass a colon delimited list with values in the following order: "COUNTRY:STATE:CITY:CODE:LATITUDE:LONGITUDE" making sure to include colon for blank values, for example to provide only the city: ... --locations="::Manchester" with all values set: ... --locations="US:NH:Manchester:03101:42.990605:-71.460989" optionally, you can just pass the "LATITUDE:LONGITUDE": ... --locations="42.990605:-71.460989" finally, you can also pass JSON string of dictionary on the command line as you would via JSON RPC ... --locations="{'country': 'US', 'state': 'NH'}" */
-  locations?:string[] 
+  locations?: string[] 
   /** clear existing locations (prior to adding new ones) */
-  clear_locations?:boolean 
+  clear_locations?: boolean 
   /** thumbnail url */
-  thumbnail_url?:string 
+  thumbnail_url?: string 
   /** url of cover image */
-  cover_url?:string 
+  cover_url?: string 
   /** account in which to look for channel (default: all) */
-  account_id?:string 
+  account_id?: string 
   /** restrict operation to specific wallet */
-  wallet_id?:string 
+  wallet_id?: string 
   /** ids of accounts to fund this transaction */
-  funding_account_ids?:string[] 
+  funding_account_ids?: string[] 
   /** address where the channel is sent */
-  claim_address?:string 
+  claim_address?: string 
   /** generate a new signing key, will invalidate all previous publishes */
-  new_signing_key?:boolean 
+  new_signing_key?: boolean 
   /** do not broadcast the transaction */
-  preview?:boolean 
+  preview?: boolean 
   /** wait until transaction is in mempool */
-  blocking?:boolean 
+  blocking?: boolean 
   /** instead of modifying specific values on the channel, this will clear all existing values and only save passed in values, useful for form submissions where all values are always set */
-  replace?:boolean 
+  replace?: boolean 
 }
 /**
  * the params object of api command {channel_import}
@@ -623,9 +623,9 @@ export interface ChannelUpdateParams {
  */
 export interface ChannelImportParams {
   /** serialized channel, as exported by channel export */
-  channel_data:string 
+  channel_data: string 
   /** import into specific wallet */
-  wallet_id?:string 
+  wallet_id?: string 
 }
 /**
  * the params object of api command {channel_list}
@@ -633,23 +633,23 @@ export interface ChannelImportParams {
  */
 export interface ChannelListParams {
   /** channel name */
-  name?:string[] 
+  name?: string[] 
   /** channel id */
-  claim_id?:string[] 
+  claim_id?: string[] 
   /** shows previous channel updates and abandons */
-  is_spent?:boolean 
+  is_spent?: boolean 
   /** id of the account to use */
-  account_id?:string 
+  account_id?: string 
   /** restrict results to specific wallet */
-  wallet_id?:string 
+  wallet_id?: string 
   /** page to return during paginating */
-  page?:number 
+  page?: number 
   /** number of items on page during pagination */
-  page_size?:number 
+  page_size?: number 
   /** resolves each channel to provide additional metadata */
-  resolve?:boolean 
+  resolve?: boolean 
   /** do not calculate the total number of pages and items in result set (significant performance boost) */
-  no_totals?:boolean 
+  no_totals?: boolean 
 }
 /**
  * the params object of api command {channel_sign}
@@ -657,15 +657,15 @@ export interface ChannelListParams {
  */
 export interface ChannelSignParams {
   /** name of channel used to sign (or use channel id) */
-  channel_name?:string 
+  channel_name?: string 
   /** claim id of channel used to sign (or use channel name) */
-  channel_id?:string 
+  channel_id?: string 
   /** data to sign, encoded as hexadecimal */
-  hexdata?:string 
+  hexdata?: string 
   /** one or more account ids for accounts to look in for channel certificates, defaults to all accounts. */
-  channel_account_id?:string 
+  channel_account_id?: string 
   /** restrict operation to specific wallet */
-  wallet_id?:string 
+  wallet_id?: string 
 }
 /**
  * the params object of api command {stream_abandon}
@@ -673,19 +673,19 @@ export interface ChannelSignParams {
  */
 export interface StreamAbandonParams {
   /** claim_id of the claim to abandon */
-  claim_id?:string 
+  claim_id?: string 
   /** txid of the claim to abandon */
-  txid?:string 
+  txid?: string 
   /** nout of the claim to abandon */
-  nout?:number 
+  nout?: number 
   /** id of the account to use */
-  account_id?:string 
+  account_id?: string 
   /** restrict operation to specific wallet */
-  wallet_id?:string 
+  wallet_id?: string 
   /** do not broadcast the transaction */
-  preview?:boolean 
+  preview?: boolean 
   /** wait until abandon is in mempool */
-  blocking?:boolean 
+  blocking?: boolean 
 }
 /**
  * the params object of api command {stream_list}
@@ -693,23 +693,23 @@ export interface StreamAbandonParams {
  */
 export interface StreamListParams {
   /** stream name */
-  name?:string[] 
+  name?: string[] 
   /** stream id */
-  claim_id?:string[] 
+  claim_id?: string[] 
   /** shows previous stream updates and abandons */
-  is_spent?:boolean 
+  is_spent?: boolean 
   /** id of the account to query */
-  account_id?:string 
+  account_id?: string 
   /** restrict results to specific wallet */
-  wallet_id?:string 
+  wallet_id?: string 
   /** page to return during paginating */
-  page?:number 
+  page?: number 
   /** number of items on page during pagination */
-  page_size?:number 
+  page_size?: number 
   /** resolves each stream to provide additional metadata */
-  resolve?:boolean 
+  resolve?: boolean 
   /** do not calculate the total number of pages and items in result set (significant performance boost) */
-  no_totals?:boolean 
+  no_totals?: boolean 
 }
 /**
  * the params object of api command {channel_abandon}
@@ -717,19 +717,19 @@ export interface StreamListParams {
  */
 export interface ChannelAbandonParams {
   /** claim_id of the claim to abandon */
-  claim_id?:string 
+  claim_id?: string 
   /** txid of the claim to abandon */
-  txid?:string 
+  txid?: string 
   /** nout of the claim to abandon */
-  nout?:number 
+  nout?: number 
   /** id of the account to use */
-  account_id?:string 
+  account_id?: string 
   /** restrict operation to specific wallet */
-  wallet_id?:string 
+  wallet_id?: string 
   /** do not broadcast the transaction */
-  preview?:boolean 
+  preview?: boolean 
   /** wait until abandon is in mempool */
-  blocking?:boolean 
+  blocking?: boolean 
 }
 /**
  * the params object of api command {support_create}
@@ -737,27 +737,27 @@ export interface ChannelAbandonParams {
  */
 export interface SupportCreateParams {
   /** claim_id of the claim to support */
-  claim_id:string 
+  claim_id: string 
   /** amount of support */
-  amount:number 
+  amount: number 
   /** send support to claim owner, default: false. */
-  tip?:boolean 
+  tip?: boolean 
   /** claim id of the supporters identity channel */
-  channel_id?:string 
+  channel_id?: string 
   /** name of the supporters identity channel */
-  channel_name?:string 
+  channel_name?: string 
   /** one or more account ids for accounts to look in for channel certificates, defaults to all accounts. */
-  channel_account_id?:string 
+  channel_account_id?: string 
   /** account to use for holding the transaction */
-  account_id?:string 
+  account_id?: string 
   /** restrict operation to specific wallet */
-  wallet_id?:string 
+  wallet_id?: string 
   /** ids of accounts to fund this transaction */
-  funding_account_ids?:string[] 
+  funding_account_ids?: string[] 
   /** do not broadcast the transaction */
-  preview?:boolean 
+  preview?: boolean 
   /** wait until transaction is in mempool */
-  blocking?:boolean 
+  blocking?: boolean 
 }
 /**
  * the params object of api command {support_list}
@@ -765,27 +765,27 @@ export interface SupportCreateParams {
  */
 export interface SupportListParams {
   /** claim name */
-  name?:string[] 
+  name?: string[] 
   /** claim id */
-  claim_id?:string[] 
+  claim_id?: string[] 
   /** only show received (tips) */
-  received?:boolean 
+  received?: boolean 
   /** only show sent (tips) */
-  sent?:boolean 
+  sent?: boolean 
   /** only show my staked supports */
-  staked?:boolean 
+  staked?: boolean 
   /** show abandoned supports */
-  is_spent?:boolean 
+  is_spent?: boolean 
   /** id of the account to query */
-  account_id?:string 
+  account_id?: string 
   /** restrict results to specific wallet */
-  wallet_id?:string 
+  wallet_id?: string 
   /** page to return during paginating */
-  page?:number 
+  page?: number 
   /** number of items on page during pagination */
-  page_size?:number 
+  page_size?: number 
   /** do not calculate the total number of pages and items in result set (significant performance boost) */
-  no_totals?:boolean 
+  no_totals?: boolean 
 }
 /**
  * the params object of api command {support_abandon}
@@ -793,21 +793,21 @@ export interface SupportListParams {
  */
 export interface SupportAbandonParams {
   /** claim_id of the support to abandon */
-  claim_id?:string 
+  claim_id?: string 
   /** txid of the claim to abandon */
-  txid?:string 
+  txid?: string 
   /** nout of the claim to abandon */
-  nout?:number 
+  nout?: number 
   /** amount of lbc to keep as support */
-  keep?:number 
+  keep?: number 
   /** id of the account to use */
-  account_id?:string 
+  account_id?: string 
   /** restrict operation to specific wallet */
-  wallet_id?:string 
+  wallet_id?: string 
   /** do not broadcast the transaction */
-  preview?:boolean 
+  preview?: boolean 
   /** wait until abandon is in mempool */
-  blocking?:boolean 
+  blocking?: boolean 
 }
 /**
  * the params object of api command {file_list}
@@ -815,53 +815,53 @@ export interface SupportAbandonParams {
  */
 export interface FileListParams {
   /** get file with matching sd hash */
-  sd_hash?:string 
+  sd_hash?: string 
   /** get file with matching file name in the downloads folder */
-  file_name?:string 
+  file_name?: string 
   /** get file with matching stream hash */
-  stream_hash?:string 
+  stream_hash?: string 
   /** get file with matching row id */
-  rowid?:number 
+  rowid?: number 
   /** get file with matching time of insertion */
-  added_on?:number 
+  added_on?: number 
   /** get file with matching claim id(s) */
-  claim_id?:string 
+  claim_id?: string 
   /** get file with matching claim outpoint(s) */
-  outpoint?:string 
+  outpoint?: string 
   /** get file with matching claim txid */
-  txid?:string 
+  txid?: string 
   /** get file with matching claim nout */
-  nout?:number 
+  nout?: number 
   /** get file with matching channel claim id(s) */
-  channel_claim_id?:string 
+  channel_claim_id?: string 
   /** get file with matching channel name */
-  channel_name?:string 
+  channel_name?: string 
   /** get file with matching claim name */
-  claim_name?:string 
+  claim_name?: string 
   /** get file with matching blobs in stream */
-  blobs_in_stream?:number 
+  blobs_in_stream?: number 
   /** get file with matching download path */
-  download_path?:string 
+  download_path?: string 
   /** get files currently uploading to reflector */
-  uploading_to_reflector?:boolean 
+  uploading_to_reflector?: boolean 
   /** get files that have been uploaded to reflector */
-  is_fully_reflected?:boolean 
+  is_fully_reflected?: boolean 
   /** match by status, ( running | finished | stopped ) */
-  status?:string 
+  status?: string 
   /** match only completed */
-  completed?:boolean 
+  completed?: boolean 
   /** amount of remaining blobs to download */
-  blobs_remaining?:number 
+  blobs_remaining?: number 
   /** field to sort by (one of the above filter fields) */
-  sort?:string 
+  sort?: string 
   /** logical comparison, (eq | ne | g | ge | l | le | in) */
-  comparison?:string 
+  comparison?: string 
   /** page to return during paginating */
-  page?:number 
+  page?: number 
   /** number of items on page during pagination */
-  page_size?:number 
+  page_size?: number 
   /** add purchase receipts from this wallet */
-  wallet_id?:string 
+  wallet_id?: string 
 }
 /**
  * the params object of api command {file_delete}
@@ -869,29 +869,29 @@ export interface FileListParams {
  */
 export interface FileDeleteParams {
   /** delete file from download directory, instead of just deleting blobs */
-  delete_from_download_dir?:boolean 
+  delete_from_download_dir?: boolean 
   /** if there are multiple matching files, allow the deletion of multiple files. Otherwise do not delete anything. */
-  delete_all?:boolean 
+  delete_all?: boolean 
   /** delete by file sd hash */
-  sd_hash?:string 
+  sd_hash?: string 
   /** delete by file name in downloads folder */
-  file_name?:string 
+  file_name?: string 
   /** delete by file stream hash */
-  stream_hash?:string 
+  stream_hash?: string 
   /** delete by file row id */
-  rowid?:number 
+  rowid?: number 
   /** delete by file claim id */
-  claim_id?:string 
+  claim_id?: string 
   /** delete by file claim txid */
-  txid?:string 
+  txid?: string 
   /** delete by file claim nout */
-  nout?:number 
+  nout?: number 
   /** delete by file claim name */
-  claim_name?:string 
+  claim_name?: string 
   /** delete by file channel claim id */
-  channel_claim_id?:string 
+  channel_claim_id?: string 
   /** delete by file channel claim name */
-  channel_name?:string 
+  channel_name?: string 
 }
 /**
  * the params object of api command {file_set_status}
@@ -899,15 +899,15 @@ export interface FileDeleteParams {
  */
 export interface FileSetStatusParams {
   /** one of "start" or "stop" */
-  status:string 
+  status: string 
   /** set status of file with matching sd hash */
-  sd_hash?:string 
+  sd_hash?: string 
   /** set status of file with matching file name in the downloads folder */
-  file_name?:string 
+  file_name?: string 
   /** set status of file with matching stream hash */
-  stream_hash?:string 
+  stream_hash?: string 
   /** set status of file with matching row id */
-  rowid?:number 
+  rowid?: number 
 }
 /**
  * the params object of api command {blob_delete}
@@ -915,7 +915,7 @@ export interface FileSetStatusParams {
  */
 export interface BlobDeleteParams {
   /** blob hash of the blob to delete */
-  blob_hash:string 
+  blob_hash: string 
 }
 /**
  * the params object of api command {blob_list}
@@ -923,19 +923,19 @@ export interface BlobDeleteParams {
  */
 export interface BlobListParams {
   /** only return needed blobs */
-  needed?:boolean 
+  needed?: boolean 
   /** only return finished blobs */
-  finished?:boolean 
+  finished?: boolean 
   /** filter blobs by stream in a uri */
-  uri?:string 
+  uri?: string 
   /** filter blobs by stream hash */
-  stream_hash?:string 
+  stream_hash?: string 
   /** filter blobs by sd hash */
-  sd_hash?:string 
+  sd_hash?: string 
   /** page to return during paginating */
-  page?:number 
+  page?: number 
   /** number of items on page during pagination */
-  page_size?:number 
+  page_size?: number 
 }
 /**
  * the params object of api command {preference_get}
@@ -943,9 +943,9 @@ export interface BlobListParams {
  */
 export interface PreferenceGetParams {
   /** key associated with value */
-  key?:string 
+  key?: string 
   /** restrict operation to specific wallet */
-  wallet_id?:string 
+  wallet_id?: string 
 }
 /**
  * the params object of api command {preference_set}
@@ -953,11 +953,11 @@ export interface PreferenceGetParams {
  */
 export interface PreferenceSetParams {
   /** key associated with value */
-  key:string 
+  key: string 
   /** key associated with value */
-  value:string 
+  value: string 
   /** restrict operation to specific wallet */
-  wallet_id?:string 
+  wallet_id?: string 
 }
 /**
  * the params object of api command {comment_list}
@@ -965,23 +965,23 @@ export interface PreferenceSetParams {
  */
 export interface CommentListParams {
   /** The claim on which the comment will be made on */
-  claim_id:string 
+  claim_id: string 
   /** CommentId of a specific thread you'd like to see */
-  parent_id?:string 
+  parent_id?: string 
   /** The page you'd like to see in the comment list. */
-  page?:number 
+  page?: number 
   /** The amount of comments that you'd like to retrieve */
-  page_size?:number 
+  page_size?: number 
   /** Skip resolving comments to validate channel names */
-  skip_validation?:boolean 
+  skip_validation?: boolean 
   /** Whether or not you want to include replies in list */
-  include_replies?:boolean 
+  include_replies?: boolean 
   /** Only include comments with valid signatures. [Warning: Paginated total size will not change, even if list reduces] */
-  is_channel_signature_valid?:boolean 
+  is_channel_signature_valid?: boolean 
   /** Select only Visible Comments */
-  visible?:boolean 
+  visible?: boolean 
   /** Select only Hidden Comments */
-  hidden?:boolean 
+  hidden?: boolean 
 }
 /**
  * the params object of api command {comment_create}
@@ -989,19 +989,19 @@ export interface CommentListParams {
  */
 export interface CommentCreateParams {
   /** Comment to be made, should be at most 2000 characters. */
-  comment:string 
+  comment: string 
   /** The ID of the claim to comment on */
-  claim_id:string 
+  claim_id: string 
   /** The ID of a comment to make a response to */
-  parent_id?:string 
+  parent_id?: string 
   /** The ID of the channel you want to post under */
-  channel_id?:string 
+  channel_id?: string 
   /** The channel you want to post as, prepend with a '@' */
-  channel_name?:string 
+  channel_name?: string 
   /** one or more account ids for accounts to look in for channel certificates, defaults to all accounts */
-  channel_account_id?:string 
+  channel_account_id?: string 
   /** restrict operation to specific wallet */
-  wallet_id?:string 
+  wallet_id?: string 
 }
 /**
  * the params object of api command {comment_update}
@@ -1009,11 +1009,11 @@ export interface CommentCreateParams {
  */
 export interface CommentUpdateParams {
   /** New comment replacing the old one */
-  comment:string 
+  comment: string 
   /** Hash identifying the comment to edit */
-  comment_id:string 
+  comment_id: string 
   /** restrict operation to specific wallet */
-  wallet_id?:string 
+  wallet_id?: string 
 }
 /**
  * the params object of api command {comment_hide}
@@ -1021,9 +1021,9 @@ export interface CommentUpdateParams {
  */
 export interface CommentHideParams {
   /** one or more comment_id to hide. */
-  comment_ids?:string[] 
+  comment_ids?: string[] 
   /** restrict operation to specific wallet */
-  wallet_id?:string 
+  wallet_id?: string 
 }
 /**
  * the params object of api command {comment_abandon}
@@ -1031,9 +1031,9 @@ export interface CommentHideParams {
  */
 export interface CommentAbandonParams {
   /** The ID of the comment to be abandoned. */
-  comment_id:string 
+  comment_id: string 
   /** restrict operation to specific wallet */
-  wallet_id?:string 
+  wallet_id?: string 
 }
 /**
  * the params object of api command {wallet_balance}
@@ -1041,9 +1041,9 @@ export interface CommentAbandonParams {
  */
 export interface WalletBalanceParams {
   /** balance for specific wallet */
-  wallet_id?:string 
+  wallet_id?: string 
   /** Only include transactions with this many confirmed blocks. */
-  confirmations?:number 
+  confirmations?: number 
 }
 /**
  * the params object of api command {wallet_decrypt}
@@ -1051,7 +1051,7 @@ export interface WalletBalanceParams {
  */
 export interface WalletDecryptParams {
   /** restrict operation to specific wallet */
-  wallet_id?:string 
+  wallet_id?: string 
 }
 /**
  * the params object of api command {wallet_encrypt}
@@ -1059,9 +1059,9 @@ export interface WalletDecryptParams {
  */
 export interface WalletEncryptParams {
   /** password to encrypt account */
-  new_password:string 
+  new_password: string 
   /** restrict operation to specific wallet */
-  wallet_id?:string 
+  wallet_id?: string 
 }
 /**
  * the params object of api command {wallet_unlock}
@@ -1069,9 +1069,9 @@ export interface WalletEncryptParams {
  */
 export interface WalletUnlockParams {
   /** password to use for unlocking */
-  password:string 
+  password: string 
   /** restrict operation to specific wallet */
-  wallet_id?:string 
+  wallet_id?: string 
 }
 /**
  * the params object of api command {wallet_list}
@@ -1079,11 +1079,11 @@ export interface WalletUnlockParams {
  */
 export interface WalletListParams {
   /** show specific wallet only */
-  wallet_id?:string 
+  wallet_id?: string 
   /** page to return during paginating */
-  page?:number 
+  page?: number 
   /** number of items on page during pagination */
-  page_size?:number 
+  page_size?: number 
 }
 /**
  * the params object of api command {wallet_send}
@@ -1091,15 +1091,15 @@ export interface WalletListParams {
  */
 export interface WalletSendParams {
   /** restrict operation to specific wallet */
-  wallet_id?:string 
+  wallet_id?: string 
   /** account where change will go */
-  change_account_id?:string 
+  change_account_id?: string 
   /** accounts to fund the transaction */
-  funding_account_ids?:string 
+  funding_account_ids?: string 
   /** do not broadcast the transaction */
-  preview?:boolean 
+  preview?: boolean 
   /** wait until tx has synced */
-  blocking?:boolean 
+  blocking?: boolean 
 }
 /**
  * the params object of api command {wallet_status}
@@ -1107,7 +1107,7 @@ export interface WalletSendParams {
  */
 export interface WalletStatusParams {
   /** status of specific wallet */
-  wallet_id?:string 
+  wallet_id?: string 
 }
 /**
  * the params object of api command {address_is_mine}
@@ -1115,11 +1115,11 @@ export interface WalletStatusParams {
  */
 export interface AddressIsMineParams {
   /** address to check */
-  address:string 
+  address: string 
   /** id of the account to use */
-  account_id?:string 
+  account_id?: string 
   /** restrict operation to specific wallet */
-  wallet_id?:string 
+  wallet_id?: string 
 }
 /**
  * the params object of api command {address_unused}
@@ -1127,9 +1127,9 @@ export interface AddressIsMineParams {
  */
 export interface AddressUnusedParams {
   /** id of the account to use */
-  account_id?:string 
+  account_id?: string 
   /** restrict operation to specific wallet */
-  wallet_id?:string 
+  wallet_id?: string 
 }
 /**
  * the params object of api command {address_list}
@@ -1137,15 +1137,15 @@ export interface AddressUnusedParams {
  */
 export interface AddressListParams {
   /** just show details for single address */
-  address?:string 
+  address?: string 
   /** id of the account to use */
-  account_id?:string 
+  account_id?: string 
   /** restrict operation to specific wallet */
-  wallet_id?:string 
+  wallet_id?: string 
   /** page to return during paginating */
-  page?:number 
+  page?: number 
   /** number of items on page during pagination */
-  page_size?:number 
+  page_size?: number 
 }
 /**
  * the params object of api command {transaction_list}
@@ -1153,13 +1153,13 @@ export interface AddressListParams {
  */
 export interface TransactionListParams {
   /** id of the account to query */
-  account_id?:string 
+  account_id?: string 
   /** restrict results to specific wallet */
-  wallet_id?:string 
+  wallet_id?: string 
   /** page to return during paginating */
-  page?:number 
+  page?: number 
   /** number of items on page during pagination */
-  page_size?:number 
+  page_size?: number 
 }
 /**
  * the params object of api command {sync_hash}
@@ -1167,7 +1167,7 @@ export interface TransactionListParams {
  */
 export interface SyncHashParams {
   /** wallet for which to generate hash */
-  wallet_id?:string 
+  wallet_id?: string 
 }
 /**
  * the params object of api command {sync_apply}
@@ -1175,13 +1175,13 @@ export interface SyncHashParams {
  */
 export interface SyncApplyParams {
   /** password to decrypt incoming and encrypt outgoing data */
-  password?:string 
+  password?: string 
   /** incoming sync data, if any */
-  data?:string 
+  data?: string 
   /** wallet being sync'ed */
-  wallet_id?:string 
+  wallet_id?: string 
   /** wait until any new accounts have sync'ed */
-  blocking?:boolean 
+  blocking?: boolean 
 }
 export declare type LbryTypes = {
   isConnected: boolean;
